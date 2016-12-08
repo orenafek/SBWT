@@ -6,10 +6,11 @@ import List.range
 import List.fill
 
 object Main {
-  val paddingChar = '$'
+  val max_char = 255
+  val paddingChar = max_char.toChar
 
   def main(args: Array[String]): Unit = {
-    print(oren(List('a', 'c', 'b')))
+    print(oren(List('z', 'c', 'b', 'j')))
   }
 
   type Suffix = Int
@@ -29,9 +30,10 @@ object Main {
           case Nil => Nil
           case x :: Nil => group
           case group => {
-            val $ = new Array[List[Suffix]](256)
-            group.foreach(x => x :: $(word(x + idx)))
-            range(0, 256).foreach(i => $(i) = radixSort($(i), idx + 1))
+            val $ = new Array[List[Suffix]](max_char + 1)
+            range(0, max_char + 1).foreach($(_) = List())
+            group.foreach(x => $(word((x + idx) % word.length)) = x :: $(word((x + idx) % word.length)))
+            range(0, max_char).foreach(i => $(i) = radixSort($(i), idx + 1))
             $.reduce(_ ::: _)
           }
         }
@@ -50,8 +52,6 @@ object Main {
     //    val mergedOtherGroups = tripletsMergeSort(groups._2, groups._3)
     //    val allMerged = merge(sortedFirstGroup, mergedOtherGroups)
     //    extractLastColumn(allMerged)
-    print(radixSort(suffixes))
-
     Nil
   }
 }
