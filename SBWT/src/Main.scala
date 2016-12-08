@@ -1,14 +1,18 @@
 /**
   * Created by sorimar on 12/8/2016.
   */
-class Main {
+
+import scala.math
+
+object Main {
+  def main(args: Array[String]): Unit = {
+    print(padWord("abcd".toList, '$'))
+  }
 
   type Suffix = Int
 
   def Oren(word: List[Char]): List[Char] = {
-
     val padded = padWord(word, '$')
-
     val suffixes = wordSuffixes(padded)
     val groups = splitToThreeGroups(suffixes)
     val sortedFirstGroup = radixSort(groups._1)
@@ -18,7 +22,7 @@ class Main {
 
   }
 
-  def padWord(word: List[Char], char: Char): List[Char] = ???
+  def padWord(word: List[Char], char: Char): List[Char] = word ::: List.fill(math.pow(3, math.ceil(math.log(word.length) / math.log(3)) ).toInt- word.length)(char)
 
   def wordSuffixes(word: List[Char]): List[Suffix] = ???
 
