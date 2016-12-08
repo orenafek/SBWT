@@ -6,7 +6,7 @@ import scala.math
 
 object Main {
   def main(args: Array[String]): Unit = {
-    print(padWord("abcd".toList, '$'))
+
   }
 
   type Suffix = Int
