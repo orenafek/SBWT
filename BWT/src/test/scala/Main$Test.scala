@@ -41,7 +41,7 @@ class Main$Test extends FunSuite {
   }
 
   test("testPadWord") {
-    assert(padWord("abcd".toList, '$') === List('a', 'b', 'c', 'd'))
+    assert(padWord("abcd".toList) === List('a', 'b', 'c', 'd'))
   }
 
   test("testExtractLastColumn") {
