@@ -4,6 +4,7 @@
 
 import List.range
 import List.fill
+
 object Main {
   def main(args: Array[String]): Unit = {
 
@@ -22,11 +23,11 @@ object Main {
 
   }
 
-  def padWord(word: List[Char], char: Char): List[Char] = word ::: fill(math.pow(3, math.ceil(math.log(word.length) / math.log(3)) ).toInt- word.length)(char)
+  def padWord(word: List[Char], char: Char): List[Char] = word ::: fill(math.pow(3, math.ceil(math.log(word.length) / math.log(3))).toInt - word.length)(char)
 
-  def wordSuffixes(word: List[Char]): List[Suffix] = range(0,word.length)
+  def wordSuffixes(word: List[Char]): List[Suffix] = range(0, word.length)
 
-  def splitToThreeGroups(word: List[Suffix]): (List[Suffix], List[Suffix], List[Suffix]) = ???
+  def splitToThreeGroups(word: List[Suffix]): (List[Suffix], List[Suffix], List[Suffix]) = (word.filter(_ % 3 == 0), word.filter(_ % 3 == 1), word.filter(_ % 3 == 2))
 
   def merge() = ???
 
