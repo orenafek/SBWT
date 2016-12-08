@@ -28,9 +28,7 @@ object Main {
   def wordSuffixes(word: List[Char]): List[Suffix] = range(0, word.length)
 
   def splitToThreeGroups(word: List[Suffix]): (List[Suffix], List[Suffix], List[Suffix]) = (word.filter(_ % 3 == 0), word.filter(_ % 3 == 1), word.filter(_ % 3 == 2))
-
-  def merge() = ???
-
+  
   def radixSort(group: List[Suffix]): List[Suffix] = ???
 
   def tripletsMergeSort(g1: List[Suffix], g2: List[Suffix]): List[Suffix] = ???
