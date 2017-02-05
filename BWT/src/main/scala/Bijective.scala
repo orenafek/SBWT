@@ -31,23 +31,28 @@ object Bijective {
     }
   }
 
+  def rotation(word: Word): Word = word match {
+    case Nil => Nil
+    case c :: cs => cs ::: List(c)
+  }
+
+  def rotations(factors: List[Word]): List[Word] = {
+
+    def wordRotations(word: Word, k: Int): List[Word] = {
+      if (k == 0) Nil
+      else {
+        val r = rotation(word)
+        r :: wordRotations(r, k - 1)
+      }
+    }
+
+
+    factors.flatMap(w => wordRotations(w, w.length))
+
+  }
+
   def transform(w: Word): Word = {
 
-    def rotations(factors: List[Word]): List[Word] = {
-
-      def wordRotations(word: Word): List[Word] = {
-        val r = rotation(word)
-        if (r == word) Nil else r :: wordRotations(r)
-      }
-
-      def rotation(word: Word): Word = word match {
-        case Nil => Nil
-        case c :: cs => cs ::: List(c)
-      }
-
-      factors.flatMap(wordRotations)
-
-    }
 
     def takeLast(factors: List[Word]): Word = ???
 
