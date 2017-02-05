@@ -9,7 +9,7 @@ object Bijective {
 
   def factorize(S: Word): List[Word] = {
     def factorize(S: Word, m: Int, k: Int): List[Word] =
-      if (S isEmpty) Nil
+      if (S.isEmpty) Nil
       else if (m >= S.size || S(m) < S(k)) S.slice(0, m - k) :: factorize(S.slice(m - k, S.size), 1, 0)
       else if (S(m) == S(k)) factorize(S, m + 1, k + 1)
       else factorize(S, m + 1, 0)
@@ -51,13 +51,13 @@ object Bijective {
       val n = η.size
       val ϑ = new Array[Int](n)
       val Σ: Int = 256
-      val counts = new Array[Int](Σ)(0)
+      val counts = new Array[Int](Σ)
       for (i <- 0 to n - 1)
-        counts(η(i)) += 1
-      val before = new Array[Int](Σ)(0)
+        counts(η(i)) = counts(η(i)) + 1
+      val before = new Array[Int](Σ)
       for (c <- 2 to Σ)
         before(c) = before(c - 1) + before(c)
-      val seen = new Array[Int](Σ)(0)
+      val seen = new Array[Int](Σ)
       for (i <- 0 to n - 1) {
         val c = η(i)
         ϑ(i) = before(c) + seen(c)
