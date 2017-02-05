@@ -27,11 +27,16 @@ class Bijective$Test extends FunSuite {
 
   test("testRotation") {
     assertResult("BCA".toList)(Bijective.rotation("ABC".toList))
+    assertResult("CCAB".toList)(Bijective.rotation("BCCA".toList))
   }
 
   test("takeLast") {
     assertResult("CGJ".toList)(Bijective.takeLast(List("ABC", "EFG", "HIJ").map(_.toList)))
 
+  }
+
+  test("transform") {
+    assertResult("yoeyeeosreeeepi mhchlmhp tttnt puio wttcefn  ooati       rrotl".toList)(Bijective.transform("now is the time for the truly nice people to come to the party".toList))
   }
 
 }

@@ -56,7 +56,6 @@ object Bijective {
   }
 
   def transform(w: Word): Word = {
-
     takeLast(sort(rotations(factorize(w))))
   }
 
