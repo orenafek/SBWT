@@ -33,8 +33,22 @@ object Bijective {
 
   def transform(w: Word): Word = {
 
+    def wordRotations(factors: List[Word]): List[Word] = {
 
-    def cyclicRotations(factors: List[Word]): List[Word] = ???
+      def cyclicWordRo
+      def wordRotation_aux(word: Word): List[Word] = {
+        val r = rotation(word)
+        if (r == word) Nil else r :: wordRotation_aux(r)
+      }
+
+      def rotation(word: Word): Word = word match {
+        case Nil => Nil
+        case c :: cs => cs ::: List(c)
+      }
+
+      word::wordRotation_aux(word)
+
+    }
 
     def takeLast(factors: List[Word]): Word = ???
 
