@@ -33,12 +33,11 @@ object Bijective {
 
   def transform(w: Word): Word = {
 
-    def wordRotations(factors: List[Word]): List[Word] = {
+    def rotations(factors: List[Word]): List[Word] = {
 
-      def cyclicWordRo
-      def wordRotation_aux(word: Word): List[Word] = {
+      def wordRotations(word: Word): List[Word] = {
         val r = rotation(word)
-        if (r == word) Nil else r :: wordRotation_aux(r)
+        if (r == word) Nil else r :: wordRotations(r)
       }
 
       def rotation(word: Word): Word = word match {
@@ -46,13 +45,13 @@ object Bijective {
         case c :: cs => cs ::: List(c)
       }
 
-      word::wordRotation_aux(word)
+      factors.flatMap(wordRotations)
 
     }
 
     def takeLast(factors: List[Word]): Word = ???
 
-    takeLast(cyclicRotations(factorize(w)))
+    takeLast(rotations(factorize(w)))
   }
 
   def inverse(η: Word): Word = {
