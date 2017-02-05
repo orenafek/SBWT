@@ -36,6 +36,10 @@ object Bijective {
     case c :: cs => cs ::: List(c)
   }
 
+  def sort(l: List[Word]): List[Word] = l.map(_.mkString).sorted.map(_.toList)
+
+  def takeLast(factors: List[Word]): Word = ???
+
   def rotations(factors: List[Word]): List[Word] = {
 
     def wordRotations(word: Word, k: Int): List[Word] = {
@@ -53,10 +57,7 @@ object Bijective {
 
   def transform(w: Word): Word = {
 
-
-    def takeLast(factors: List[Word]): Word = ???
-
-    takeLast(rotations(factorize(w)))
+    takeLast(sort(rotations(factorize(w))))
   }
 
   def inverse(η: Word): Word = {

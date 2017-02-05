@@ -21,11 +21,13 @@ class Bijective$Test extends FunSuite {
     assertResult("o".toList :: "iuy".toList :: "c".toList :: "a".toList :: "asffff".toList :: Nil)(Bijective.factorize("oiuycaasffff".toList))
   }
 
-  /*test("testRotations") {
-    assertResult(List("ABC", "BCA", "CAB").map(_.toList))(Bijective.rotations(List("ABC".toList)))
-  }*/
+  test("testRotations") {
+    assertResult(List("ABC", "BCA", "CAB").map(_.toList))(Bijective.sort(Bijective.rotations(List("ABC".toList))))
+  }
 
   test("testRotation"){
     assertResult("BCA".toList)(Bijective.rotation("ABC".toList))
   }
+
+
 }
