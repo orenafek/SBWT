@@ -38,7 +38,7 @@ object Bijective {
 
   def sort(l: List[Word]): List[Word] = l.map(_.mkString).sorted.map(_.toList)
 
-  def takeLast(factors: List[Word]): Word = ???
+  def takeLast(words: List[Word]): Word = words.map(_.last)
 
   def rotations(factors: List[Word]): List[Word] = {
 
