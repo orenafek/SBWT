@@ -5,6 +5,7 @@
 object Bijective {
 
   type Word = List[Char]
+  type π = Array[Int]
 
   def factorize(S: Word): List[Word] = {
     def factorize(S: Word, m: Int, k: Int): List[Word] =
@@ -46,9 +47,26 @@ object Bijective {
 
   def inverse(η: Word): Word = {
 
-    def Match(η: Word): Word = ???
+    def Match(η: Word): Array[Int] = {
+      val n = η.size
+      val ϑ = new Array[Int](n)
+      val Σ: Int = 256
+      val counts = new Array[Int](Σ)(0)
+      for (i <- 0 to n - 1)
+        counts(η(i)) += 1
+      val before = new Array[Int](Σ)(0)
+      for (c <- 2 to Σ)
+        before(c) = before(c - 1) + before(c)
+      val seen = new Array[Int](Σ)(0)
+      for (i <- 0 to n - 1) {
+        val c = η(i)
+        ϑ(i) = before(c) + seen(c)
+        seen(c) += 1
+      }
+      ϑ
+    }
 
-    def multiThread(η: Word, θ: Word) = ???
+    def multiThread(η: Word, θ: π) = ???
 
     val θ = Match(η)
 
