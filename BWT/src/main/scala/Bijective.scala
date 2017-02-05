@@ -6,29 +6,13 @@ object Bijective {
 
   type Word = List[Char]
 
-  def factorize(w: Word): List[Word] = {
-
-    def nextFactor(w: Word): (Word, Word) = {
-
-      def unpack(c: Char, tuple: (Word, Word)): (Word, Word) = (tuple._1, c :: tuple._2)
-
-      def next_factor_aux(w: Word, k: Char): (Word, Word) = w match {
-        case Nil => (Nil, Nil)
-        case c :: cs => if (k < c) unpack(c, next_factor_aux(cs, k)) else (c :: cs, Nil)
-      }
-
-      w match {
-        case Nil => (Nil, Nil)
-        case c :: cs => unpack(c, next_factor_aux(cs, c))
-      }
-    }
-
-    def factorize_aux(tuple: (Word, Word)) = tuple._2 :: factorize(tuple._1)
-
-    w match {
-      case Nil => Nil
-      case _ => factorize_aux(nextFactor(w))
-    }
+  def factorize(S: Word): List[Word] = {
+    def factorize(S: Word, m: Int, k: Int): List[Word] =
+      if (S isEmpty) Nil
+      else if (m >= S.size || S(m) < S(k)) S.slice(0, m - k) :: factorize(S.slice(m - k, S.size), 1, 0)
+      else if (S(m) == S(k)) factorize(S, m + 1, k + 1)
+      else factorize(S, m + 1, 0)
+    factorize(S, 1, 0)
   }
 
   def rotation(word: Word): Word = word match {
@@ -36,7 +20,9 @@ object Bijective {
     case c :: cs => cs ::: List(c)
   }
 
-  def sort(l: List[Word]): List[Word] = l.map(_.mkString).sorted.map(_.toList)
+  def lt(s1: String, s2: String): Boolean = (s2 * s1.length) >= (s1 * s2.length)
+
+  def sort(l: List[Word]): List[Word] = l.map(_.mkString).sortWith(lt).map(_.toList)
 
   def takeLast(words: List[Word]): Word = words.map(_.last)
 
