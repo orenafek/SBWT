@@ -26,19 +26,18 @@ object Bijective {
 
   def takeLast(words: List[Word]): Word = words.map(_.last)
 
-  def rotations(factors: List[Word]): List[Word] = {
+  def rotations(ωs: List[Word]): List[Word] = {
 
-    def wordRotations(word: Word, k: Int): List[Word] = {
-      if (k == 0) Nil
-      else {
-        val r = rotation(word)
-        r :: wordRotations(r, k - 1)
-      }
+    def concatRotationAndContinue(α: Word, i: Int): List[Word] = {
+      α :: rotations(α, i - 1)
     }
 
+    def rotations(α: Word, i: Int): List[Word] = {
+      if (i == 0) Nil
+      else concatRotationAndContinue(rotation(α), i)
+    }
 
-    factors.flatMap(w => wordRotations(w, w.length))
-
+    ωs.flatMap(w => rotations(w, w.length))
   }
 
   def transform(w: Word): Word = {
@@ -47,11 +46,11 @@ object Bijective {
 
   def inverse(η: Word): Word = {
 
-    def bijectiveMatch(η: Word): Word = ???
+    def Match(η: Word): Word = ???
 
     def multiThread(η: Word, θ: Word) = ???
 
-    val θ = bijectiveMatch(η)
+    val θ = Match(η)
 
     multiThread(η, θ)
 
