@@ -74,13 +74,11 @@ object Bijective {
       for (i <- 0 until n)
         T(i) = ϑ(i)
       var α: Word = Nil
-      var i = n - 1
       for (j <- 0 until n)
         if (T(j) != ⊥) {
           var k = j
           do {
             α = η(k) :: α
-            i = i - 1
             val t = k
             k = T(k)
             T(t) = ⊥
