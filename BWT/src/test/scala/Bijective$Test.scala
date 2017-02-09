@@ -19,7 +19,7 @@ class Bijective$Test extends FunSuite {
     assertResult(List("or".toList, "en".toList))(Bijective.factorize("oren".toList))
     assertResult(List("gr".toList, "een".toList))(Bijective.factorize("green".toList))
     assertResult(List("o".toList, "iuy".toList, "c".toList, "aasffff".toList))(Bijective.factorize("oiuycaasffff".toList))
-//    assertResult(List(List('n', 'o', 'w'), List(' ', 'i', 's'), List(' ', 't', 'h', 'e'), List(' ', 't', 'i', 'm', 'e'), List(' ', 'f', 'o', 'r'), List(' ', 't', 'h', 'e'), List(' ', 't', 'r', 'u', 'l', 'y'), List(' ', 'n', 'i', 'c', 'e'), List(' ', 'p', 'e', 'o', 'p', 'l', 'e'), List(' ', 't', 'o'), List(' ', 'c', 'o', 'm', 'e'), List(' ', 't', 'o'), List(' ', 't', 'h', 'e'), List(' ', 'p', 'a', 'r', 't', 'y')))(Bijective.factorize("now is the time for the truly nice people to come to the party".toList))
+    //    assertResult(List(List('n', 'o', 'w'), List(' ', 'i', 's'), List(' ', 't', 'h', 'e'), List(' ', 't', 'i', 'm', 'e'), List(' ', 'f', 'o', 'r'), List(' ', 't', 'h', 'e'), List(' ', 't', 'r', 'u', 'l', 'y'), List(' ', 'n', 'i', 'c', 'e'), List(' ', 'p', 'e', 'o', 'p', 'l', 'e'), List(' ', 't', 'o'), List(' ', 'c', 'o', 'm', 'e'), List(' ', 't', 'o'), List(' ', 't', 'h', 'e'), List(' ', 'p', 'a', 'r', 't', 'y')))(Bijective.factorize("now is the time for the truly nice people to come to the party".toList))
   }
 
   test("testRotations") {
@@ -40,5 +40,9 @@ class Bijective$Test extends FunSuite {
 
   test("transform") {
     assertResult("yoeyeeosreeeepi mhchlmhp tttnt puio wttcefn  ooati       rrotl")(Bijective.transform("now is the time for the truly nice people to come to the party".toList).mkString)
+  }
+
+  test("inverse") {
+    assertResult("now is the time for the truly nice people to come to the party")(Bijective.inverse("yoeyeeosreeeepi mhchlmhp tttnt puio wttcefn  ooati       rrotl".toList).mkString)
   }
 }

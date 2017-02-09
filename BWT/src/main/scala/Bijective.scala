@@ -50,14 +50,14 @@ object Bijective {
     def Match(η: Word): π = {
       val n = η.size
       val Σ = 256
-      val ϑ = new Array[Int](Σ)
+      val ϑ = new Array[Int](n)
       val counts = new Array[Int](Σ)
       for (i <- 0 until n)
         counts(η(i)) += 1
       val before = new Array[Int](Σ)
       before(0) = counts(0)
       for (c <- 1 until Σ)
-        before(c) = before(c - 1) + counts(c)
+        before(c) = before(c - 1) + counts(c - 1)
       val seen = new Array[Int](Σ)
       for (i <- 0 until n) {
         val c = η(i)
@@ -70,21 +70,23 @@ object Bijective {
     def multiThread(η: Word, ϑ: π) = {
       val n = η.size
       val ⊥ = -17
-      val T = new Array[Int](n)(⊥)
+      val T = new Array[Int](n)
       for (i <- 0 until n)
         T(i) = ϑ(i)
-      val α = new Array[Int](n)
-      val i = n - 1
-      for (j <- 0 to n)
-        if (T(i) != ⊥) {
-          val k: Int = j
+      var α: Word = Nil
+      var i = n - 1
+      for (j <- 0 until n)
+        if (T(j) != ⊥) {
+          var k = j
           do {
-            α(i) = η(k)
-
+            α = η(k) :: α
+            i = i - 1
+            val t = k
+            k = T(k)
+            T(t) = ⊥
           } while (T(k) != ⊥)
         }
-
-
+      α
     }
 
     val ϑ = Match(η)
