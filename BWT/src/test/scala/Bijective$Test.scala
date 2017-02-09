@@ -45,4 +45,8 @@ class Bijective$Test extends FunSuite {
   test("inverse") {
     assertResult("now is the time for the truly nice people to come to the party")(Bijective.inverse("yoeyeeosreeeepi mhchlmhp tttnt puio wttcefn  ooati       rrotl".toList).mkString)
   }
+
+  test("final") {
+    assertResult("This paper presents the notion of Nano-Patterns, offers criteria for evaluating\ntheir quality, and describes how they might be used for code design, effective\ncommunication between programmers, a concrete documentation aides, and in\nconsideration of extension of the base programming language.")(Bijective.inverse(Bijective.transform("This paper presents the notion of Nano-Patterns, offers criteria for evaluating\ntheir quality, and describes how they might be used for code design, effective\ncommunication between programmers, a concrete documentation aides, and in\nconsideration of extension of the base programming language.".toList)).mkString)
+  }
 }
