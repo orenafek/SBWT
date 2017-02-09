@@ -47,18 +47,19 @@ object Bijective {
 
   def inverse(η: Word): Word = {
 
-    def Match(η: Word): Array[Int] = {
+    def Match(η: Word): π = {
       val n = η.size
-      val ϑ = new Array[Int](n)
-      val Σ: Int = 256
+      val Σ = 256
+      val ϑ = new Array[Int](Σ)
       val counts = new Array[Int](Σ)
-      for (i <- 0 to n - 1)
-        counts(η(i)) = counts(η(i)) + 1
+      for (i <- 0 until n)
+        counts(η(i)) += 1
       val before = new Array[Int](Σ)
-      for (c <- 2 to Σ)
-        before(c) = before(c - 1) + before(c)
+      before(0) = counts(0)
+      for (c <- 1 until Σ)
+        before(c) = before(c - 1) + counts(c)
       val seen = new Array[Int](Σ)
-      for (i <- 0 to n - 1) {
+      for (i <- 0 until n) {
         val c = η(i)
         ϑ(i) = before(c) + seen(c)
         seen(c) += 1
@@ -66,11 +67,29 @@ object Bijective {
       ϑ
     }
 
-    def multiThread(η: Word, θ: π) = ???
+    def multiThread(η: Word, ϑ: π) = {
+      val n = η.size
+      val ⊥ = -17
+      val T = new Array[Int](n)(⊥)
+      for (i <- 0 until n)
+        T(i) = ϑ(i)
+      val α = new Array[Int](n)
+      val i = n - 1
+      for (j <- 0 to n)
+        if (T(i) != ⊥) {
+          val k: Int = j
+          do {
+            α(i) = η(k)
 
-    val θ = Match(η)
+          } while (T(k) != ⊥)
+        }
 
-    multiThread(η, θ)
+
+    }
+
+    val ϑ = Match(η)
+
+    multiThread(η, ϑ)
 
   }
 
