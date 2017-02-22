@@ -23,7 +23,12 @@ object Bijective {
 
   def lt(s1: String, s2: String): Boolean = (s2 * s1.length) >= (s1 * s2.length)
 
-  def sort(l: List[Word]): List[Word] = l.map(_.mkString).sortWith(lt).map(_.toList)
+  def sort(l: List[Word]): List[Word] = {
+    println("Sorting Started")
+    val returnValue = l.map(_.mkString).sortWith(lt).map(_.toList)
+    println("Sorting Finished")
+    return returnValue
+  }
 
   def takeLast(words: List[Word]): Word = words.map(_.last)
 
