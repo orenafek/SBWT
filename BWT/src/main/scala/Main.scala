@@ -5,7 +5,12 @@
 object Main {
 
   def main(args: Array[String]): Unit = {
-    val original = "now is the time for the truly nice people to come to the party"
+    val source = getClass.getResourceAsStream("/random1.txt")
+    val strings = scala.io.Source.fromInputStream(source).getLines.toList.flatten
+    println(Bijective.transform(strings)
+
+
+
 
   }
 
