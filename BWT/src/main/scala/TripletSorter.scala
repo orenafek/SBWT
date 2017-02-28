@@ -1,5 +1,5 @@
 import Bijective.Word
-import TripletSorter.Triplet
+import TripletSorter.{IndexedTriplet, Triplet}
 
 import scala.runtime.Nothing$
 
@@ -9,13 +9,10 @@ import scala.runtime.Nothing$
   */
 object TripletSorter {
   type IntList = List[Int]
-  type permutation = List[Int]
+  type IndexedIntList = List[(Int,Int)]
   type Triplet = (Int, IntList)
-  type TripList = List[(Int,Triplet)]
-
-  type SuperTriplet = (IntList,IntList) //(idxs,triplet)
-
-
+  type IndexedTriplet = (Int, IntList)
+  type TripList = List[IndexedTriplet]
 
   def mkWord(src: TripList): Word = src.flatMap(_._2._2.map(_.toChar))
 
@@ -28,9 +25,9 @@ object TripletSorter {
 
   def merge(g0: TripList, g1_2: TripList): TripList = ???
 
-  def sort_aux(src: TripList): TripList = {
+  def sort_aux(src: IndexedIntList): TripList = {
     if(src.size < 3)
-      radixSort(src)
+      ???
     else{
       val g0 = ???
       val g1_2 = ???
@@ -41,7 +38,7 @@ object TripletSorter {
   def oneTwoHandler(src: TripList): TripList = {
     val $ = radixSort(src)
     val o = new Ordinal
-    sort_aux($.map(o.next)).map($(_))
+    sort_aux($.map(x => o.next(x))).map(x => $(x._1))
   }
 
 
@@ -64,9 +61,9 @@ object TripletSorter {
 class Ordinal {
   var i: Int = -1
   var j: Int = -1
-  var last: Triplet = (-1,List(-1,-1,-1))
+  var last: IndexedTriplet = (-1,List(-1,-1,-1))
 
-  def next(current: Triplet): (Int,Int) = {
+  def next(current: IndexedTriplet): (Int,Int) = {
     if (last != current)
       i += 1
     j += 1
