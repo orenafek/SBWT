@@ -6,26 +6,34 @@ import TripletSorter.Triplet
   * @since 22/02/17
   */
 object TripletSorter {
-  type IntWord = List[Int]
+  type IntList = List[Int]
   type permutation = List[Int]
-  type Triplet = (Int, IntWord)
+  type Triplet = (Int, IntList)
   type TripList = List[Triplet]
 
   def mkWord(src: TripList): Word = src.flatMap(_._2.map(_.toChar))
 
   def mkTriplets(src: Word): TripList = mkTriplets_aux(src.map(_.toInt))
 
-  def mkTriplets_aux(src: IntWord): TripList = Range(0, src.size - 2)
+  def mkTriplets_aux(src: IntList): TripList = Range(0, src.size - 2)
     .map(i => (i, List(src(i), src(i + 1), src(i + 2)))).toList
 
   def sort(src: Word): Word = ???
 
-  def sort_aux(src: List[(Int,Int)]): IntWord = ???
+  def sort_aux(src: List[(Int,Int)]): IntList = {
+    if(src.size < 3)
+      src.map(_._2)
+    else{
+      val g0 = ???
+      val g1_2 = ???
+      merge(radixSort(g0), oneTwoHandler(g1_2))
+    }
+  }
 
   def oneTwoHandler(src: TripList): TripList = {
     val $ = radixSort(src)
     val o = new Ordinal
-    sort_aux($.map(o.next)).map($[_])
+    sort_aux($.map(o.next)).map($(_))
   }
 
 
