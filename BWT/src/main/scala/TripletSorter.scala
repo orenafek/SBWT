@@ -26,6 +26,8 @@ object TripletSorter {
 
   def sort(src: Word): Word = ???
 
+  def merge(g0: TripList, g1_2: TripList): TripList = ???
+
   def sort_aux(src: TripList): TripList = {
     if(src.size < 3)
       radixSort(src)
