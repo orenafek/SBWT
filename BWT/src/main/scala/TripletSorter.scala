@@ -1,6 +1,8 @@
 import Bijective.Word
 import TripletSorter.Triplet
 
+import scala.runtime.Nothing$
+
 /**
   * @author Oren Afek
   * @since 22/02/17
@@ -9,14 +11,18 @@ object TripletSorter {
   type IntList = List[Int]
   type permutation = List[Int]
   type Triplet = (Int, IntList)
-  type TripList = List[Triplet]
+  type TripList = List[(Int,Triplet)]
 
-  def mkWord(src: TripList): Word = src.flatMap(_._2.map(_.toChar))
+  type SuperTriplet = (IntList,IntList) //(idxs,triplet)
+
+
+
+  def mkWord(src: TripList): Word = src.flatMap(_._2._2.map(_.toChar))
 
   def mkTriplets(src: Word): TripList = mkTriplets_aux(src.map(_.toInt))
 
   def mkTriplets_aux(src: IntList): TripList = Range(0, src.size - 2)
-    .map(i => (i, List(src(i), src(i + 1), src(i + 2)))).toList
+    .map(i => (-1,(i, List(src(i), src(i + 1), src(i + 2))))).toList
 
   def sort(src: Word): Word = ???
 
@@ -41,13 +47,14 @@ object TripletSorter {
 
   }
 
-  def radixSort(src: TripList): TripList = {
+  def radixSort(src:TripList): TripList = {
     def radixSort_aux(src: TripList, i: Int): TripList = {
       if (i == 3) src
-      else src.groupBy(_._2(i)).map(x => (x._1, radixSort_aux(x._2, i + 1))).toList.sortBy(_._1).flatten(_._2)
+      else src.groupBy(_._2._2(i)).map(x => (x._1, radixSort_aux(x._2, i + 1))).toList.sortBy(_._1).flatten(_._2)
     }
     radixSort_aux(src, 0)
   }
+
 
 
 }
