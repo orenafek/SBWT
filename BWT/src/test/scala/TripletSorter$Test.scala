@@ -7,12 +7,11 @@ class TripletSorter$Test extends FunSuite {
 
   val word = "fghyabcdeifa".toList
   test("testMkTriplets"){
-    println(TripletSorter.mkTriplets(word))
-
+    println(TripletSorter.mkWord(TripletSorter.mkTriplets(word)))
   }
 
   test("testRadixSort"){
-    println(TripletSorter.radixSort(TripletSorter.mkTriplets(word)))
+    println(TripletSorter.mkWord(TripletSorter.radixSort(TripletSorter.mkTriplets(word))))
   }
 
 }
