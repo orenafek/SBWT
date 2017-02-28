@@ -26,9 +26,9 @@ object TripletSorter {
 
   def sort(src: Word): Word = ???
 
-  def sort_aux(src: List[(Int,Int)]): IntList = {
+  def sort_aux(src: TripList): TripList = {
     if(src.size < 3)
-      src.map(_._2)
+      radixSort(src)
     else{
       val g0 = ???
       val g1_2 = ???
