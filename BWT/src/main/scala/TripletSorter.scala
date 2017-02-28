@@ -20,12 +20,12 @@ object TripletSorter {
 
   def sort(src: Word): Word = ???
 
-  def sort_aux(src: IntWord): permutation = ???
+  def sort_aux(src: List[(Int,Int)]): IntWord = ???
 
-  def oneTwoHandler(src: TripList): permutation = {
+  def oneTwoHandler(src: TripList): TripList = {
     val $ = radixSort(src)
     val o = new Ordinal
-    sort_aux($.map(x => o.next(x))).map()
+    sort_aux($.map(o.next)).map($[_])
   }
 
 
@@ -46,13 +46,15 @@ object TripletSorter {
 
 class Ordinal {
   var i: Int = -1
+  var j: Int = -1
   var last: Triplet = (-1,List(-1,-1,-1))
 
-  def next(current: Triplet): (Int,Triplet) = {
+  def next(current: Triplet): (Int,Int) = {
     if (last != current)
       i += 1
+    j += 1
     last = current
-    (i,current)
+    (i,j)
   }
 }
 
