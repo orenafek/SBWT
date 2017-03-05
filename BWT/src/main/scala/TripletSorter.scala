@@ -79,7 +79,9 @@ object TripletSorter {
   }
 
   def radixSort(g0: TripList, suffixes: OrderedSuffixes): TripList =
-    g0.groupBy(_.ltrs.head).flatMap(x => x._2.sortBy(y => suffixes.get(y.wordIdx + 1))).toList
+    g0.sortBy(_.ltrs.head)
+
+  //.groupBy(_.ltrs.head).flatMap(x => x._2.sortBy(y => suffixes.get(y.wordIdx + 1))).toList
 
   def sort_aux(src: IndexedIntWord): TripList = {
     if (src.size <= 3)
@@ -87,7 +89,7 @@ object TripletSorter {
     else {
       val (g0, g1_2) = mkGroups(src)
       val handler: TripList = oneTwoHandler(g1_2)
-      val orderedSuffixes = new OrderedSuffixes(g1_2)
+      val orderedSuffixes = new OrderedSuffixes(handler)
       merge(radixSort(g0, orderedSuffixes), handler)
     }
   }
@@ -95,10 +97,14 @@ object TripletSorter {
   def oneTwoHandler(src: TripList): TripList = {
     val $ = radixSort(src)
     val o = new Ordinal
-    var li = ListBuffer(Marco(∞, -1), Marco(∞, -1)) //two dollars for the end
+    var li = new ListBuffer[Marco]
     $.foreach(x => li += o.next(x))
-    val sorted = sort_aux(li)
-    sorted.take(sorted.size - 2).map(x => $(x.i))
+    if (o.equaled) {
+      li += Marco(∞, -1) += Marco(∞, -1)
+      val sorted = sort_aux(li)
+      sorted.take(sorted.size - 2).map(x => $(x.i))
+    } else
+      $
   }
 
   def radixSort(src: TripList): TripList = {
@@ -136,12 +142,15 @@ class Ordinal {
   var i: Int = -1
   var j: Int = -1
   var last: IndexedTriplet = IndexedTriplet(-1, -1, ListBuffer(-1, -1, -1))
+  var equaled = false
 
   def next(): Marco = next(last)
 
   def next(current: IndexedTriplet): Marco = {
     if (last != current)
       i += 1
+    else
+      equaled = true
     j += 1
     last = current
     Marco(i, j)
