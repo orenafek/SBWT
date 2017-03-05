@@ -73,7 +73,12 @@ class TripletSorter$Test extends FunSuite {
   }
 
   test("sort") {
-    println(sort("fghyabcdeifa".toList))
+    println(sort("fghyfabcdeifa".toList))
+  }
+
+  test("sort2") {
+    val src = "mississippi".toList
+    println(sort(src).map(l => l.mkString +"\n"))
   }
 
 }

@@ -32,9 +32,9 @@ object TripletSorter {
   def mkTriplets_aux(src: IndexedIntWord): TripList = Range(0, src.size - 2)
     .map(i => IndexedTriplet(src(i).ord, i, ListBuffer(src(i).tkn, src(i + 1).tkn, src(i + 2).tkn))).toList
 
-  def sort(src: Word): Word = {
+  def sort(src: Word): List[Word] = {
     val o = new Ordinal()
-    sort_aux(src.map(c => Marco(c.toInt, o.next().ord)).to[ListBuffer]).map(t => src(t.i))
+    sort_aux(src.map(c => Marco(c.toInt, o.next().ord)).to[ListBuffer] += Marco(∞, -1) += Marco(∞, -1)).map(t => src.takeRight(t.i))
   }
 
 
@@ -78,8 +78,11 @@ object TripletSorter {
     merge_inner(g0, g1_2, new OrderedSuffixes(g1_2))
   }
 
-  def radixSort(g0: TripList, suffixes: OrderedSuffixes): TripList =
-    g0.sortBy(_.ltrs.head)
+  def radixSort(g0: TripList, suffixes: OrderedSuffixes): TripList = {
+    val groupedBy: Map[Int, List[IndexedTriplet]] = g0.groupBy(_.ltrs.head)
+    //need to fix zis
+    groupedBy.map(x => (x._1, x._2.sortBy(y => suffixes.get(y.wordIdx + 1)))).toList.sortBy(_._1).flatten
+  }
 
   //.groupBy(_.ltrs.head).flatMap(x => x._2.sortBy(y => suffixes.get(y.wordIdx + 1))).toList
 
