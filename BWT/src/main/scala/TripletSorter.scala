@@ -10,7 +10,7 @@ object TripletSorter {
 
   case class Triplet(wordIdx: Int, ltrs: IntList) {}
 
-  case class IndexedTriplet(i: Int, override val wordIdx: Int, override val ltrs: IntList) extends Triplet(wordIdx, ltrs)
+  case class IndexedTriplet(i: Int, wordIdx: Int, ltrs: IntList)
 
   type IntList = List[Int]
   type IndexedIntWord = List[Marco]
@@ -28,11 +28,16 @@ object TripletSorter {
   def mkTriplets(src: IndexedIntWord): TripList = mkTriplets_aux(src)
 
   def mkTriplets_aux(src: IndexedIntWord): TripList = Range(0, src.size - 2)
-    .map(i => IndexedTriplet(-1, i, List(src(i).tkn, src(i + 1).tkn, src(i + 2).tkn))).toList
+    .map(i => IndexedTriplet(src(i).ord, i, List(src(i).tkn, src(i + 1).tkn, src(i + 2).tkn))).toList
 
   def sort(src: Word): Word = {
     val o = new Ordinal()
     sort_aux(src.map(c => Marco(c.toInt, o.next().ord))).map(t => src(t.i))
+  }
+
+  def marcoyada(src: Word) = {
+    val o = new Ordinal()
+    src.map(c => Marco(c.toInt, o.next().ord))
   }
 
   def merge(g0: TripList, g1_2: TripList): TripList = {
@@ -109,7 +114,8 @@ object TripletSorter {
     val magicNo = 1.5
     var data: Array[Int] = _
 
-    def this(lst: TripList) = this() {
+    def this(lst: TripList) = {
+      this()
       val temp = lst.toArray
       data = new Array(scala.math.ceil(magicNo * lst.size).toInt)
       for (i <- temp.indices) {

@@ -1,3 +1,4 @@
+import TripletSorter._
 import org.scalatest.FunSuite
 
 /**
@@ -6,12 +7,26 @@ import org.scalatest.FunSuite
 class TripletSorter$Test extends FunSuite {
 
   val word = "fghyabcdeifa".toList
-  test("testMkTriplets"){
-    println(TripletSorter.mkWord(TripletSorter.mkTriplets(word)))
+  val aba = "aba".toList
+  test("testMkTriplets") {
+    // println(TripletSorter.mkWord(TripletSorter.mkTriplets(word)))
   }
 
-  test("testRadixSort"){
-    println(TripletSorter.mkWord(TripletSorter.radixSort(TripletSorter.mkTriplets(word))))
+  test("testRadixSort") {
+    //  println(TripletSorter.mkWord(TripletSorter.radixSort(TripletSorter.mkTriplets(word))))
+  }
+
+  test("Marcoyada") {
+    println(marcoyada(word))
+
+  }
+  test("softLessThen3letters"){
+    //println(sort("aba".toList))
+    val o = new Ordinal()
+    println(sort_aux(aba.map(c => Marco(c.toInt, o.next().ord))))
+  }
+  test("sort") {
+    println(sort(word))
   }
 
 }
