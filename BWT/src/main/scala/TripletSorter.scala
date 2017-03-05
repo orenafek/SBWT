@@ -16,29 +16,44 @@ object TripletSorter {
 
   def mkWord(src: TripList): Word = src.flatMap(_._2._2.map(_.toChar))
 
-  def mkTriplets(src: Word): TripList = mkTriplets_aux(src.map(_.toInt))
+  def mkGroups(src: IndexedIntList): (TripList, TripList) = {
+    val $ = Range(0, src.size - 2)
+      .map(i => (src(i)._2, (i, List(src(i)._1, src(i + 1)._1, src(i + 2)._1)))).toList
+    def group0Cond(x: IndexedTriplet) = x._2._1 % 3 == 0
+    ($.filter(group0Cond), $.filter(!group0Cond(_)))
+  }
+
+  def mkTriplets(src: IntList): TripList = mkTriplets_aux(src.map(_.toInt))
 
   def mkTriplets_aux(src: IntList): TripList = Range(0, src.size - 2)
     .map(i => (-1, (i, List(src(i), src(i + 1), src(i + 2))))).toList
 
   def sort(src: Word): Word = ???
 
-  def merge(g0: TripList, g1_2: TripList): TripList = ???
+  def merge(g0: TripList, g1_2: TripList): TripList = {
+
+
+  }
+
+  def radixSort(g0: TripList, handler: TripList): TripList = ???
 
   def sort_aux(src: IndexedIntList): TripList = {
-    if (src.size < 3)
+    if (src.size == 1)
       ???
+//      List(src.head._2,(-1,???))
+//    else if (src.isEmpty)
+//      Nil
     else {
-      val g0 = ???
-      val g1_2 = ???
-      merge(radixSort(g0), oneTwoHandler(g1_2))
+      val (g0, g1_2) = mkGroups(src)
+      val handler: TripList = oneTwoHandler(g1_2)
+      merge(radixSort(g0, handler), handler)
     }
   }
 
   def oneTwoHandler(src: TripList): TripList = {
     val $ = radixSort(src)
     val o = new Ordinal
-    sort_aux($.map(x => o.next(x))).map(x => $(x._1))
+    sort_aux($.map(o.next)).map(x => $(x._1))
   }
 
 
