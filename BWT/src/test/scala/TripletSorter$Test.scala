@@ -37,21 +37,22 @@ class TripletSorter$Test extends FunSuite {
     println(radixSort(g1_2))
   }
 
-  //  test("sort_aux") {
-  //    val o1 = new Ordinal()
-  //    val (_, src) = mkGroups(word.map(c => Marco(c.toInt, o1.next().ord)) ::: List(Marco(∞, -1), Marco(∞, -1)))
-  //    val $ = radixSort(src)
-  //    val o2 = new Ordinal()
-  //    var li = List(Marco(∞, -1), Marco(∞, -1)) //two dollars for the end
-  //    $.foreach(x => li = o2.next(x) :: li)
-  //    println($)
-  //    println(li)
-  //    println(sort_aux(li))
-  //  }
-  //
-  //
-    test("sort") {
-      println(sort("fghyabcdeifa".toList))
-    }
+  test("sort_aux") {
+    val o1 = new Ordinal()
+    val (_, src) = mkGroups(word.map(c => Marco(c.toInt, o1.next().ord)) += Marco(∞, -1) += Marco(∞, -1))
+    val $ = radixSort(src)
+    val o2 = new Ordinal()
+    var li = new ListBuffer[Marco]
+    $.foreach(x => li += o2.next(x))
+    li += Marco(∞, -1) += Marco(∞, -1)
+    println($)
+    println(li)
+    println(sort_aux(li.reverse.to[ListBuffer]))
+  }
+
+
+  test("sort") {
+    println(sort("fghyabcdeifa".toList))
+  }
 
 }

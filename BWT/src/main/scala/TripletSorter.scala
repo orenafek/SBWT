@@ -118,7 +118,7 @@ object TripletSorter {
       val temp = lst.toArray
       val len = scala.math.ceil(magicNo * lst.size + 2).toInt
       data = new Array(len)
-      for (i <- temp.indices) {
+      for (i: Int <- temp.indices) {
         data(temp(i).wordIdx) = i
       }
       data(len - 2) = ∞
