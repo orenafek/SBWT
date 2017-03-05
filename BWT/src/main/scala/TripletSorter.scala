@@ -99,7 +99,8 @@ object TripletSorter {
     val o = new Ordinal
     var li = List(Marco(∞, -1), Marco(∞, -1)) //two dollars for the end
     $.foreach(x => li = o.next(x) :: li)
-    sort_aux(li).map(x => $(x.i))
+    val sorted = sort_aux(li)
+    sorted.take(sorted.size - 2).map(x => $(x.i))
   }
 
   def radixSort(src: TripList): TripList = {
