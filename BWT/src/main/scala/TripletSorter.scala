@@ -72,7 +72,8 @@ object TripletSorter {
     merge_inner(g0, g1_2, new OrderedSuffixes(g1_2))
   }
 
-  def radixSort(g0: TripList, handler: TripList): TripList = ???
+  def radixSort(g0: TripList, suffixes: OrderedSuffixes): TripList =
+    g0.groupBy(_.ltrs.head).flatMap(x => x._2.sortBy(y => suffixes.get(y.wordIdx + 1))).toList
 
   def sort_aux(src: IndexedIntWord): TripList = {
     if (src.size <= 3)
@@ -80,7 +81,8 @@ object TripletSorter {
     else {
       val (g0, g1_2) = mkGroups(src)
       val handler: TripList = oneTwoHandler(g1_2)
-      merge(radixSort(g0, handler), handler)
+      val orderedSuffixes = new OrderedSuffixes(g1_2)
+      merge(radixSort(g0, orderedSuffixes), handler)
     }
   }
 
