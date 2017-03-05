@@ -1,6 +1,8 @@
 import Bijective.Word
 import TripletSorter.IndexedTriplet
 
+import scala.collection.mutable.ListBuffer
+
 /**
   * @author Oren Afek
   * @since 22/02/17
@@ -12,15 +14,15 @@ object TripletSorter {
 
   case class IndexedTriplet(i: Int, wordIdx: Int, ltrs: IntList)
 
-  type IntList = List[Int]
-  type IndexedIntWord = List[Marco]
+  type IntList = ListBuffer[Int]
+  type IndexedIntWord = ListBuffer[Marco]
   type TripList = List[IndexedTriplet]
 
   def mkWord(src: TripList): Word = src.flatMap(_.ltrs.map(_.toChar))
 
   def mkGroups(src: IndexedIntWord): (TripList, TripList) = {
     val $ = Range(0, src.size - 2)
-      .map(i => IndexedTriplet(src(i).ord, i, List(src(i).tkn, src(i + 1).tkn, src(i + 2).tkn))).toList
+      .map(i => IndexedTriplet(src(i).ord, i, ListBuffer(src(i).tkn, src(i + 1).tkn, src(i + 2).tkn))).toList
     def group0Cond(x: IndexedTriplet) = x.wordIdx % 3 == 0
     ($.filter(group0Cond), $.filter(!group0Cond(_)))
   }
@@ -28,17 +30,13 @@ object TripletSorter {
   def mkTriplets(src: IndexedIntWord): TripList = mkTriplets_aux(src)
 
   def mkTriplets_aux(src: IndexedIntWord): TripList = Range(0, src.size - 2)
-    .map(i => IndexedTriplet(src(i).ord, i, List(src(i).tkn, src(i + 1).tkn, src(i + 2).tkn))).toList
+    .map(i => IndexedTriplet(src(i).ord, i, ListBuffer(src(i).tkn, src(i + 1).tkn, src(i + 2).tkn))).toList
 
   def sort(src: Word): Word = {
     val o = new Ordinal()
-    sort_aux(src.map(c => Marco(c.toInt, o.next().ord))).map(t => src(t.i))
+    sort_aux(src.map(c => Marco(c.toInt, o.next().ord)).to[ListBuffer]).map(t => src(t.i))
   }
 
-  def marcoyada(src: Word) = {
-    val o = new Ordinal()
-    src.map(c => Marco(c.toInt, o.next().ord))
-  }
 
   def merge(g0: TripList, g1_2: TripList): TripList = {
 
@@ -85,7 +83,7 @@ object TripletSorter {
 
   def sort_aux(src: IndexedIntWord): TripList = {
     if (src.size <= 3)
-      radixSort(mkTriplets(src ::: List(Marco(∞, -1), Marco(∞, -1))))
+      radixSort(mkTriplets(src += Marco(∞, -1) += Marco(∞, -1)))
     else {
       val (g0, g1_2) = mkGroups(src)
       val handler: TripList = oneTwoHandler(g1_2)
@@ -97,8 +95,8 @@ object TripletSorter {
   def oneTwoHandler(src: TripList): TripList = {
     val $ = radixSort(src)
     val o = new Ordinal
-    var li = List(Marco(∞, -1), Marco(∞, -1)) //two dollars for the end
-    $.foreach(x => li = o.next(x) :: li)
+    var li = ListBuffer(Marco(∞, -1), Marco(∞, -1)) //two dollars for the end
+    $.foreach(x => li += o.next(x))
     val sorted = sort_aux(li)
     sorted.take(sorted.size - 2).map(x => $(x.i))
   }
@@ -134,7 +132,7 @@ case class Marco(tkn: Int, ord: Int) {}
 class Ordinal {
   var i: Int = -1
   var j: Int = -1
-  var last: IndexedTriplet = IndexedTriplet(-1, -1, List(-1, -1, -1))
+  var last: IndexedTriplet = IndexedTriplet(-1, -1, ListBuffer(-1, -1, -1))
 
   def next(): Marco = next(last)
 
