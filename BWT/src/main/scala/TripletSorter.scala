@@ -30,7 +30,10 @@ object TripletSorter {
   def mkTriplets_aux(src: IndexedIntWord): TripList = Range(0, src.size - 2)
     .map(i => IndexedTriplet(-1, i, List(src(i).tkn, src(i + 1).tkn, src(i + 2).tkn))).toList
 
-  def sort(src: Word): Word = ???
+  def sort(src: Word): Word = {
+    val o = new Ordinal()
+    sort_aux(src.map(c => Marco(c.toInt, o.next().ord))).map(t => src(t.i))
+  }
 
   def merge(g0: TripList, g1_2: TripList): TripList = {
 
@@ -94,11 +97,6 @@ object TripletSorter {
     sort_aux(li).map(x => $(x.i))
   }
 
-
-  def sortTriplets(src: TripList) = {
-
-  }
-
   def radixSort(src: TripList): TripList = {
     def radixSort_aux(src: TripList, i: Int): TripList = {
       if (i == 3) src
@@ -120,8 +118,6 @@ object TripletSorter {
     }
 
     def get(i: Int): Int = data(i)
-
-
   }
 
 }
@@ -133,6 +129,8 @@ class Ordinal {
   var j: Int = -1
   var last: IndexedTriplet = IndexedTriplet(-1, -1, List(-1, -1, -1))
 
+  def next(): Marco = next(last)
+
   def next(current: IndexedTriplet): Marco = {
     if (last != current)
       i += 1
@@ -141,4 +139,3 @@ class Ordinal {
     Marco(i, j)
   }
 }
-
