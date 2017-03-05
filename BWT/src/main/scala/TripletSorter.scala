@@ -116,10 +116,13 @@ object TripletSorter {
     def this(lst: TripList) = {
       this()
       val temp = lst.toArray
-      data = new Array(scala.math.ceil(magicNo * lst.size).toInt)
+      val len = scala.math.ceil(magicNo * lst.size + 2).toInt
+      data = new Array(len)
       for (i <- temp.indices) {
         data(temp(i).wordIdx) = i
       }
+      data(len - 2) = ∞
+      data(len - 1) = ∞
     }
 
     def get(i: Int): Int = data(i)

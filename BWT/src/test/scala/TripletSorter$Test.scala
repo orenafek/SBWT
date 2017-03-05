@@ -24,34 +24,34 @@ class TripletSorter$Test extends FunSuite {
     println(sort_aux(aba.map(c => Marco(c.toInt, o.next().ord))))
   }
 
-//  test("makeGroups") {
-//    val o = new Ordinal()
-//    val (g0, g1_2) = mkGroups(word.map(c => Marco(c.toInt, o.next().ord)) ::: List(Marco(∞, -1), Marco(∞, -1)))
-//    println(g0)
-//    println(g1_2)
-//  }
-//
-//  test("radix") {
-//    val o = new Ordinal()
-//    val (g0, g1_2) = mkGroups(word.map(c => Marco(c.toInt, o.next().ord)) ::: List(Marco(∞, -1), Marco(∞, -1)))
-//    println(radixSort(g1_2))
-//  }
-//
-//  test("sort_aux") {
-//    val o1 = new Ordinal()
-//    val (_, src) = mkGroups(word.map(c => Marco(c.toInt, o1.next().ord)) ::: List(Marco(∞, -1), Marco(∞, -1)))
-//    val $ = radixSort(src)
-//    val o2 = new Ordinal()
-//    var li = List(Marco(∞, -1), Marco(∞, -1)) //two dollars for the end
-//    $.foreach(x => li = o2.next(x) :: li)
-//    println($)
-//    println(li)
-//    println(sort_aux(li))
-//  }
-//
-//
-//  test("sort") {
-//    println(sort(word))
-//  }
+  test("makeGroups") {
+    val o = new Ordinal()
+    val (g0, g1_2) = mkGroups(word.map(c => Marco(c.toInt, o.next().ord)) += Marco(∞, -1) += Marco(∞, -1))
+    println(g0)
+    println(g1_2)
+  }
+
+  test("radix") {
+    val o = new Ordinal()
+    val (_, g1_2) = mkGroups(word.map(c => Marco(c.toInt, o.next().ord)) += Marco(∞, -1) += Marco(∞, -1))
+    println(radixSort(g1_2))
+  }
+
+  //  test("sort_aux") {
+  //    val o1 = new Ordinal()
+  //    val (_, src) = mkGroups(word.map(c => Marco(c.toInt, o1.next().ord)) ::: List(Marco(∞, -1), Marco(∞, -1)))
+  //    val $ = radixSort(src)
+  //    val o2 = new Ordinal()
+  //    var li = List(Marco(∞, -1), Marco(∞, -1)) //two dollars for the end
+  //    $.foreach(x => li = o2.next(x) :: li)
+  //    println($)
+  //    println(li)
+  //    println(sort_aux(li))
+  //  }
+  //
+  //
+    test("sort") {
+      println(sort("fghyabcdeifa".toList))
+    }
 
 }
