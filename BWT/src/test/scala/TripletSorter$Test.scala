@@ -20,11 +20,19 @@ class TripletSorter$Test extends FunSuite {
     println(marcoyada(word))
 
   }
-  test("softLessThen3letters"){
+  test("sortLessThen3letters") {
     //println(sort("aba".toList))
     val o = new Ordinal()
     println(sort_aux(aba.map(c => Marco(c.toInt, o.next().ord))))
   }
+
+  test("makeGroups") {
+    val o = new Ordinal()
+    val (g0, g1_2) = mkGroups(word.map(c => Marco(c.toInt, o.next().ord)) ::: List(Marco(∞, -1), Marco(∞, -1)))
+    println(g0)
+    println(g1_2)
+  }
+
   test("sort") {
     println(sort(word))
   }
