@@ -4,7 +4,7 @@ import org.scalatest.FunSuite
   * @author Oren Afek
   * @since 05/02/17
   */
-class Bijective$Test extends FunSuite {
+class LyndonBijective$Test extends FunSuite {
 
   test("testTransform") {
 

@@ -23,7 +23,9 @@ object TripletSorter {
   def mkGroups(src: IndexedIntWord): (TripList, TripList) = {
     val $ = Range(0, src.size - 2)
       .map(i => IndexedTriplet(src(i).ord, i, ListBuffer(src(i).tkn, src(i + 1).tkn, src(i + 2).tkn))).toList
+
     def group0Cond(x: IndexedTriplet) = x.wordIdx % 3 == 0
+
     ($.filter(group0Cond), $.filter(!group0Cond(_)))
   }
 
@@ -34,7 +36,9 @@ object TripletSorter {
 
   def sort(src: Word): List[Word] = {
     val o = new Ordinal()
-    sort_aux(src.map(c => Marco(c.toInt, o.next().ord)).to[ListBuffer] += Marco(∞, -1) += Marco(∞, -1)).map(t => src.takeRight(t.i))
+    sort_aux(src.map(c => Marco(c.toInt, o.next().ord)).to[ListBuffer] += Marco(∞, -1) += Marco(∞, -1))
+        .map(t => src.takeRight(t.i))
+
   }
 
 
@@ -42,7 +46,9 @@ object TripletSorter {
 
     def merge_inner(g0: TripList, g1_2: TripList, suffixes: OrderedSuffixes): TripList = {
       def proceedWithG0: TripList = g0.head :: merge_inner(g0.tail, g1_2, suffixes)
+
       def proceedWithG12: TripList = g1_2.head :: merge_inner(g0, g1_2.tail, suffixes)
+
       if (g0.isEmpty) g1_2
       else if (g1_2.isEmpty) g0
       else {
@@ -75,13 +81,16 @@ object TripletSorter {
         }
       }
     }
+
     merge_inner(g0, g1_2, new OrderedSuffixes(g1_2))
   }
 
   def radixSort(g0: TripList, suffixes: OrderedSuffixes): TripList = {
     val groupedBy: Map[Int, List[IndexedTriplet]] = g0.groupBy(_.ltrs.head)
     //need to fix zis
-    groupedBy.map(x => (x._1, x._2.sortBy(y => suffixes.get(y.wordIdx + 1)))).toList.sortBy(_._1).flatten
+    val sortedMap = groupedBy.map(x => (x._1, x._2.sortBy(y => suffixes.get(y.i + 1)))).toList.sortBy(_._1)
+    val flatten = sortedMap.flatten(l => l._2)
+    flatten
   }
 
   //.groupBy(_.ltrs.head).flatMap(x => x._2.sortBy(y => suffixes.get(y.wordIdx + 1))).toList
@@ -115,6 +124,7 @@ object TripletSorter {
       if (i == 3) src
       else src.groupBy(_.ltrs(i)).map(x => (x._1, radixSort_aux(x._2, i + 1))).toList.sortBy(_._1).flatten(_._2)
     }
+
     radixSort_aux(src, 0)
   }
 
