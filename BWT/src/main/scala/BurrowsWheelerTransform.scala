@@ -1,5 +1,9 @@
 
-/**
+/** Implementation of the Burrows Wheeler transform.
+  * There are two implementations here:
+  * transformSlow - running in n square.
+  * transformLinear - running in O(n).
+  *
   * @author Oren Afek & Ori Marcovitch
   * @since 15/03/17
   */
@@ -8,39 +12,50 @@ class BurrowsWheelerTransform {
   type Word = List[Char]
   type π = Array[Int] //permutation
 
-  def factorize(w: Word): List[Word] = List(w)
 
   def rotation(w: Word): Word = w match {
     case Nil => Nil
     case c :: cs => cs ::: List(c)
   }
 
-  def lt(s1: String, s2: String): Boolean = (s2 * s1.length) >= (s1 * s2.length)
+  private def lt(s1: String, s2: String): Boolean = (s2 * s1.length) >= (s1 * s2.length)
 
   def sort(l: List[Word]): List[Word] =
     l.map(_.mkString).sortWith(lt).map(_.toList)
 
   def takeLast(words: List[Word]): Word = words.map(_.last)
 
-  def rotations(ωs: List[Word]): List[Word] = {
+  def rotations(ω: Word): List[Word] = {
+    def rotations(α: Word, i: Int): List[Word] = {
+      def concatRotationAndContinue(α: Word, i: Int): List[Word] = α :: rotations(α, i - 1)
 
-    def concatRotationAndContinue(α: Word, i: Int): List[Word] = α :: rotations(α, i - 1)
-
-    def rotations(α: Word, i: Int): List[Word] = if (i == 0) Nil else concatRotationAndContinue(rotation(α), i)
-
-    ωs.flatMap(w => rotations(w, w.length))
+      if (i == 0) Nil else concatRotationAndContinue(rotation(α), i)
+    }
+    rotations(ω, ω.length)
   }
 
-  def transformSlow(w: Word): Word = takeLast(sort(rotations(factorize(w))))
+  /**
+    * Burrows Wheeler transform, sorting like loons
+    *
+    * @param w word to transform
+    * @return
+    */
+  def transformSlow(w: Word): Word = takeLast(sort(rotations(w)))
 
-  def transformLinear(w: Word): Word = takeLast(TripletSorter.sort(w))
+  /**
+    * Burrows Wheeler transform running in O(n), using the Skew algorithm to sort suffixes
+    *
+    * @param w word to transform
+    * @return
+    */
+  def transformLinear(w: Word): Word = SuffixesSorter.suffixesIndexesSorted(w).map(i => w((w.size + i - 1) % w.size))
 
-  def sortWithSorter(ws: List[Word], sorter: (String, String) => Boolean): List[Word] =
-    ws.map(_.mkString).sortWith(sorter).map(_.toList)
-
-  def transformWithSorter(w: Word, sorter: (String, String) => Boolean): Word =
-    takeLast(sortWithSorter(rotations(factorize(w)), sorter))
-
+  /**
+    * The inverse of Burrows Wheeler transform running in O(n), algorithm according to Gil:Scott:09
+    *
+    * @param η word to inverse
+    * @return
+    */
   def inverse(η: Word): Word = {
 
     def Match(η: Word): π = {

@@ -1,4 +1,4 @@
-import TripletSorter._
+import SuffixesSorter._
 import org.scalatest.FunSuite
 
 import scala.collection.mutable.ListBuffer
@@ -16,26 +16,31 @@ class TripletSorter$Test extends FunSuite {
   }
 
   test("sort") {
-    println(sort("fghyfabcdeifa".toList).map(x => x.mkString))
+    println(suffixesSorted("fghyfabcdeifa".toList).map(x => x.mkString))
   }
 
   test("sort simple") {
-    println(sort("cab".toList).map(x => x.mkString))
+    println(suffixesSorted("cab".toList).map(x => x.mkString))
   }
 
   test("sort simple2") {
-    println(sort("dcab".toList).map(x => x.mkString))
+    println(suffixesSorted("dcab".toList).map(x => x.mkString))
   }
 
   test("sort simple3") {
-    println(sort("acab".toList).map(x => x.mkString))
+    println(suffixesSorted("acab".toList).map(x => x.mkString))
   }
   test("sort simple4") {
-    println(sort("acaba".toList).map(x => x.mkString))
+    println(suffixesSorted("acaba".toList).map(x => x.mkString))
   }
   test("sort2") {
     val src = "mississippi".toList
-    println(sort(src).map(l => l.mkString + "\n"))
+    println(suffixesSorted(src).map(l => l.mkString + "\n"))
+  }
+
+  test("sort nowIs") {
+    val src = "now is the time for the truly nice people to come to the party".toList
+    println(suffixesSorted(src).map(l => l.mkString + "\n"))
   }
 
 }
