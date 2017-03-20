@@ -33,9 +33,9 @@ object TripletSorter {
     val $ = Range(0, src.size - 2)
       .map(i => IndexedTriplet(src(i).ord, i, ListBuffer(src(i).tkn, src(i + 1).tkn, src(i + 2).tkn))).toList
 
-    def group0Cond(x: IndexedTriplet) = x.wordIdx % 3 == 0
+    def group0(x: IndexedTriplet) = x.wordIdx % 3 == 0
 
-    ($.filter(group0Cond), $.filter(!group0Cond(_)))
+    ($.filter(group0), $.filter(!group0(_)))
   }
 
   def mkTriplets(src: IndexedIntWord): TripList = mkTriplets_aux(src)
@@ -45,7 +45,7 @@ object TripletSorter {
 
   def sort(src: Word): List[Word] = {
     val o = new Ordinal()
-    val x = sort_aux(src.map(c => OrderedToken(c.toInt, o.next().ord)).to[ListBuffer] += OrderedToken(∞, ∅) += OrderedToken(∞, ∅))
+    val x = sort_aux(src.map(c => OrderedToken(c.toInt, o.next().ord)).to[ListBuffer] += defaultToken += defaultToken)
     x.map(t => src.takeRight(src.length - t.i))
 
   }
@@ -102,7 +102,7 @@ object TripletSorter {
 
   def sort_aux(src: IndexedIntWord): TripList = {
     if (src.size <= 3)
-      radixSort(mkTriplets(src += OrderedToken(∞, -1) += OrderedToken(∞, -1)))
+      radixSort(mkTriplets(src += defaultToken += defaultToken))
     else {
       val (g0, g1_2) = mkGroups(src)
       val g1_2Sorted: TripList = oneTwoHandler(g1_2)
@@ -117,11 +117,15 @@ object TripletSorter {
     var li = new ListBuffer[OrderedToken]
     $.foreach(x => li += o.next(x))
     if (o.equaled) {
-      li += OrderedToken(∞, -1) += OrderedToken(∞, -1)
+      li += defaultToken += defaultToken
       val sorted = sort_aux(li)
       sorted.take(sorted.size - 2).map(x => $(x.i))
     } else
       $
+  }
+
+  def defaultToken: OrderedToken = {
+    OrderedToken(∞, ∅)
   }
 
   def radixSort(src: TripList): TripList = {
