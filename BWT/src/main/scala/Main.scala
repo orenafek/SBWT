@@ -1,7 +1,7 @@
 import java.io.{BufferedInputStream, FileInputStream}
 
 /**
-  * @author Oren Afek
+  * @author Oren Afek & Ori Marcovitch
   * @since 05/02/17
   */
 object Main {
@@ -20,7 +20,7 @@ object Main {
   }
 
   def main(args: Array[String]): Unit = {
-      test(BurrowsWheeler,random1,2000)
+      test(BurrowsWheeler,random1,500)
   }
 
 }

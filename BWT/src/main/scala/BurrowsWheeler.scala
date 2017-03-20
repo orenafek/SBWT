@@ -1,7 +1,7 @@
 import Bijective.{Word, π}
 
 /**
-  * @author Oren Afek
+  * @author Oren Afek & Ori Marcovitch
   * @since 15/03/17
   */
 

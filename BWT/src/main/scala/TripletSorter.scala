@@ -4,7 +4,7 @@ import TripletSorter.IndexedTriplet
 import scala.collection.mutable.ListBuffer
 
 /**
-  * @author Oren Afek
+  * @author Oren Afek & Ori Marcovitch
   * @since 22/02/17
   */
 object TripletSorter {
@@ -36,8 +36,8 @@ object TripletSorter {
 
   def sort(src: Word): List[Word] = {
     val o = new Ordinal()
-    sort_aux(src.map(c => Marco(c.toInt, o.next().ord)).to[ListBuffer] += Marco(∞, -1) += Marco(∞, -1))
-        .map(t => src.takeRight(t.i))
+    val x = sort_aux(src.map(c => Marco(c.toInt, o.next().ord)).to[ListBuffer] += Marco(∞, -1) += Marco(∞, -1))
+    x.map(t => src.takeRight(src.length - t.i))
 
   }
 
