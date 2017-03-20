@@ -1,27 +1,24 @@
-import GilScottBijectiveTransform.{Word, π}
 
 /**
   * @author Oren Afek & Ori Marcovitch
   * @since 15/03/17
   */
 
-trait BurrowsWheelerTransform {
+class BurrowsWheelerTransform {
   type Word = List[Char]
-  type π = Array[Int]
+  type π = Array[Int] //permutation
 
   def factorize(w: Word): List[Word] = List(w)
 
-  def rotation(word: Word): Word = word match {
+  def rotation(w: Word): Word = w match {
     case Nil => Nil
     case c :: cs => cs ::: List(c)
   }
 
   def lt(s1: String, s2: String): Boolean = (s2 * s1.length) >= (s1 * s2.length)
 
-  def sort(l: List[Word]): List[Word] = {
-    val returnValue = l.map(_.mkString).sortWith(lt).map(_.toList)
-    return returnValue
-  }
+  def sort(l: List[Word]): List[Word] =
+    l.map(_.mkString).sortWith(lt).map(_.toList)
 
   def takeLast(words: List[Word]): Word = words.map(_.last)
 
@@ -34,10 +31,12 @@ trait BurrowsWheelerTransform {
     ωs.flatMap(w => rotations(w, w.length))
   }
 
-  def transform(w: Word): Word = takeLast(sort(rotations(factorize(w))))
+  def transformSlow(w: Word): Word = takeLast(sort(rotations(factorize(w))))
 
-  def sortWithSorter(words: List[Word], sorter: (String, String) => Boolean): List[Word] =
-    words.map(_.mkString).sortWith(sorter).map(_.toList)
+  def transformLinear(w: Word): Word = takeLast(TripletSorter.sort(w))
+
+  def sortWithSorter(ws: List[Word], sorter: (String, String) => Boolean): List[Word] =
+    ws.map(_.mkString).sortWith(sorter).map(_.toList)
 
   def transformWithSorter(w: Word, sorter: (String, String) => Boolean): Word =
     takeLast(sortWithSorter(rotations(factorize(w)), sorter))
@@ -92,6 +91,3 @@ trait BurrowsWheelerTransform {
 
 }
 
-object BurrowsWheelerTransform extends BurrowsWheelerTransform {
-
-}

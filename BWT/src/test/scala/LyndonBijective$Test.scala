@@ -38,8 +38,12 @@ class LyndonBijective$Test extends FunSuite {
 
   }
 
-  test("transform") {
-    assertResult("yoeyeeosreeeepi mhchlmhp tttnt puio wttcefn  ooati       rrotl")(GilScottBijectiveTransform.transform("now is the time for the truly nice people to come to the party".toList).mkString)
+  test("bijectiveTransform") {
+    assertResult("yoeyeeosreeeepi mhchlmhp tttnt puio wttcefn  ooati       rrotl")(GilScottBijectiveTransform.transformSlow("now is the time for the truly nice people to come to the party".toList).mkString)
+}
+
+  test("linearTransform") {
+    assertResult("yoeyeeosreeeepi mhchlmhp tttnt puio wttcefn  ooati       rrotl")(new BurrowsWheelerTransform().transformLinear("now is the time for the truly nice people to come to the party".toList).mkString)
   }
 
   test("inverse") {
@@ -47,12 +51,12 @@ class LyndonBijective$Test extends FunSuite {
   }
 
   test("final") {
-    assertResult("This paper presents the notion of Nano-Patterns, offers criteria for evaluating\ntheir quality, and describes how they might be used for code design, effective\ncommunication between programmers, a concrete documentation aides, and in\nconsideration of extension of the base programming language.")(GilScottBijectiveTransform.inverse(GilScottBijectiveTransform.transform("This paper presents the notion of Nano-Patterns, offers criteria for evaluating\ntheir quality, and describes how they might be used for code design, effective\ncommunication between programmers, a concrete documentation aides, and in\nconsideration of extension of the base programming language.".toList)).mkString)
+    assertResult("This paper presents the notion of Nano-Patterns, offers criteria for evaluating\ntheir quality, and describes how they might be used for code design, effective\ncommunication between programmers, a concrete documentation aides, and in\nconsideration of extension of the base programming language.")(GilScottBijectiveTransform.inverse(GilScottBijectiveTransform.transformSlow("This paper presents the notion of Nano-Patterns, offers criteria for evaluating\ntheir quality, and describes how they might be used for code design, effective\ncommunication between programmers, a concrete documentation aides, and in\nconsideration of extension of the base programming language.".toList)).mkString)
   }
 
   test("final2") {
     val s: String = "Lorem ipsum dolor sit amet, pri ad probo populo doctus, ei mel brute dolores. Ei labore euismod qui. Ei natum appareat salutandi mea. Meliore dolores ex nam, mea elit urbanitas ut, pro ea aliquip delectus repudiandae. Nec ei exerci graecis. No vis ullum iudico explicari, nominavi torquatos vim no, et eam pertinax moderatius.\n\nVis id quot pertinacia. At omnis reprehendunt nec, ex debet nullam vix. Aliquid sanctus posidonium eum in, illum utinam at nec. Nam audiam volumus id, has ne legimus mediocritatem.\n\nVel et ponderum consulatu. Ad est principes moderatius, ea qui quis cetero conclusionemque, ne has paulo soleat adolescens. Ut nam tale eruditi volutpat, mea ex stet voluptaria, democritum omittantur pro ex. Eos at adhuc appareat ullamcorper.\n\nQuo ne aeque epicuri intellegam, dolore abhorreant sit ex. Est an iracundia reprehendunt. Sit viris legere numquam ad, alii partem ex qui. Sed ea quem esse pertinax, no est posse liber mandamus, eum probo fugit no. Qui ex vitae euismod reprehendunt, quot putant persius eam te. Dignissim dissentias his et, id usu probo zril.\n\nPer illum liber et. Facer vidisse ex vim. No postea suscipiantur duo. Porro tritani nam eu."
-    assertResult(s)(GilScottBijectiveTransform.inverse(GilScottBijectiveTransform.transform(s.toList)).mkString)
+    assertResult(s)(GilScottBijectiveTransform.inverse(GilScottBijectiveTransform.transformSlow(s.toList)).mkString)
   }
 
 }

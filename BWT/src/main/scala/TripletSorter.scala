@@ -105,13 +105,13 @@ object TripletSorter {
       radixSort(mkTriplets(src += defaultToken += defaultToken))
     else {
       val (g0, g1_2) = mkGroups(src)
-      val g1_2Sorted: TripList = oneTwoHandler(g1_2)
+      val g1_2Sorted: TripList = g1_2Sort(g1_2)
       val orderedSuffixes = new OrderedSuffixes(g1_2Sorted)
       merge(radixSort(g0, orderedSuffixes), g1_2Sorted)
     }
   }
 
-  def oneTwoHandler(src: TripList): TripList = {
+  def g1_2Sort(src: TripList): TripList = {
     val $ = radixSort(src)
     val o = new Ordinal
     var li = new ListBuffer[OrderedToken]

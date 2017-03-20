@@ -15,12 +15,12 @@ object Main {
   }
 
   def test(testObject: BurrowsWheelerTransform, fileName: String, blockSize: Int): Unit = {
-    val sorted = openFile(fileName, blockSize).map(w => testObject.transform(w).mkString)
+    val sorted = openFile(fileName, blockSize).map(w => testObject.transformSlow(w).mkString)
     println(sorted.mkString)
   }
 
   def main(args: Array[String]): Unit = {
-      test(BurrowsWheelerTransform,random1,500)
+      test(new BurrowsWheelerTransform,random1,500)
   }
 
 }

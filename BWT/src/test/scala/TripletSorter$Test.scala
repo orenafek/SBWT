@@ -9,7 +9,7 @@ import scala.collection.mutable.ListBuffer
 class TripletSorter$Test extends FunSuite {
 
   val aba = "aba".toList.to[ListBuffer]
-  
+
   test("sortLessThen3letters") {
     val o = new Ordinal()
     println(sort_aux(aba.map(c => OrderedToken(c.toInt, o.next().ord))))
