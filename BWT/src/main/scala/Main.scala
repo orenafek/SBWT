@@ -14,13 +14,13 @@ object Main {
     slices
   }
 
-  def test(testObject: BurrowsWheeler, fileName: String, blockSize: Int): Unit = {
+  def test(testObject: BurrowsWheelerTransform, fileName: String, blockSize: Int): Unit = {
     val sorted = openFile(fileName, blockSize).map(w => testObject.transform(w).mkString)
     println(sorted.mkString)
   }
 
   def main(args: Array[String]): Unit = {
-      test(BurrowsWheeler,random1,500)
+      test(BurrowsWheelerTransform,random1,500)
   }
 
 }

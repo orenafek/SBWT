@@ -21,19 +21,19 @@ class TripletSorter$Test extends FunSuite {
   test("sortLessThen3letters") {
     //println(sort("aba".toList))
     val o = new Ordinal()
-    println(sort_aux(aba.map(c => Marco(c.toInt, o.next().ord))))
+    println(sort_aux(aba.map(c => OrderedToken(c.toInt, o.next().ord))))
   }
 
   test("makeGroups") {
     val o = new Ordinal()
-    val (g0, g1_2) = mkGroups(word.map(c => Marco(c.toInt, o.next().ord)) += Marco(∞, -1) += Marco(∞, -1))
+    val (g0, g1_2) = mkGroups(word.map(c => OrderedToken(c.toInt, o.next().ord)) += OrderedToken(∞, -1) += OrderedToken(∞, -1))
     println(g0)
     println(g1_2)
   }
 
   test("radix") {
     val o = new Ordinal()
-    val (_, g1_2) = mkGroups(word.map(c => Marco(c.toInt, o.next().ord)) += Marco(∞, -1) += Marco(∞, -1))
+    val (_, g1_2) = mkGroups(word.map(c => OrderedToken(c.toInt, o.next().ord)) += OrderedToken(∞, -1) += OrderedToken(∞, -1))
     println(radixSort(g1_2))
   }
 
@@ -45,9 +45,9 @@ class TripletSorter$Test extends FunSuite {
     val $ = radixSort(src)
     println("$: " + $)
     val o = new Ordinal
-    var li = new ListBuffer[Marco]
+    var li = new ListBuffer[OrderedToken]
     $.foreach(x => li += o.next(x))
-    li += Marco(∞, -1) += Marco(∞, -1)
+    li += OrderedToken(∞, -1) += OrderedToken(∞, -1)
     println("li: " + li)
     val sorted = sort_aux(li)
     println("sorted: " + sorted)
@@ -68,7 +68,7 @@ class TripletSorter$Test extends FunSuite {
 
   def input: IndexedIntWord = {
     val o1 = new Ordinal()
-    val src: IndexedIntWord = word.map(c => Marco(c.toInt, o1.next().ord)) += Marco(∞, -1) += Marco(∞, -1)
+    val src: IndexedIntWord = word.map(c => OrderedToken(c.toInt, o1.next().ord)) += OrderedToken(∞, -1) += OrderedToken(∞, -1)
     src
   }
 
@@ -79,9 +79,20 @@ class TripletSorter$Test extends FunSuite {
   test("sort simple") {
     println(sort("cab".toList).map(x => x.mkString))
   }
+
+  test("sort simple2") {
+    println(sort("dcab".toList).map(x => x.mkString))
+  }
+
+  test("sort simple3") {
+    println(sort("acab".toList).map(x => x.mkString))
+  }
+  test("sort simple4") {
+    println(sort("acaba".toList).map(x => x.mkString))
+  }
   test("sort2") {
     val src = "mississippi".toList
-    println(sort(src).map(l => l.mkString +"\n"))
+    println(sort(src).map(l => l.mkString + "\n"))
   }
 
 }

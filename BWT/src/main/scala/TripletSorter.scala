@@ -1,24 +1,33 @@
-import Bijective.Word
+import GilScottBijectiveTransform.Word
 import TripletSorter.IndexedTriplet
 
 import scala.collection.mutable.ListBuffer
 
-/**
+import Constants.∞
+import Constants.∅
+
+/** The purpose of this decent class is just to kindly sort suffixes of a given string. In O(n).
+  * Which is not trivial at all and is implemented according to the Skew algorithm.
+  * Check it out - http://www.cs.cmu.edu/~ckingsf/bioinfo-lectures/suffixarrays.pdf
+  *
   * @author Oren Afek & Ori Marcovitch
   * @since 22/02/17
   */
+
+
+case class OrderedToken(tkn: Int, ord: Int) {}
+
 object TripletSorter {
-  val ∞ = Int.MaxValue
 
-  case class Triplet(wordIdx: Int, ltrs: IntList) {}
+  case class Triplet(wordIdx: Int, letters: IntList) {}
 
-  case class IndexedTriplet(i: Int, wordIdx: Int, ltrs: IntList)
+  case class IndexedTriplet(i: Int, wordIdx: Int, letters: IntList)
 
   type IntList = ListBuffer[Int]
-  type IndexedIntWord = ListBuffer[Marco]
+  type IndexedIntWord = ListBuffer[OrderedToken]
   type TripList = List[IndexedTriplet]
 
-  def mkWord(src: TripList): Word = src.flatMap(_.ltrs.map(_.toChar))
+  def mkWord(src: TripList): Word = src.flatMap(_.letters.map(_.toChar))
 
   def mkGroups(src: IndexedIntWord): (TripList, TripList) = {
     val $ = Range(0, src.size - 2)
@@ -36,7 +45,7 @@ object TripletSorter {
 
   def sort(src: Word): List[Word] = {
     val o = new Ordinal()
-    val x = sort_aux(src.map(c => Marco(c.toInt, o.next().ord)).to[ListBuffer] += Marco(∞, -1) += Marco(∞, -1))
+    val x = sort_aux(src.map(c => OrderedToken(c.toInt, o.next().ord)).to[ListBuffer] += OrderedToken(∞, ∅) += OrderedToken(∞, ∅))
     x.map(t => src.takeRight(src.length - t.i))
 
   }
@@ -54,8 +63,8 @@ object TripletSorter {
       else {
         val i = g1_2.head.wordIdx
         val j = g0.head.wordIdx
-        val S_i = g1_2.head.ltrs.head
-        val S_j = g0.head.ltrs.head
+        val S_i = g1_2.head.letters.head
+        val S_j = g0.head.letters.head
         if (S_i < S_j)
           proceedWithG12
         else if (S_i > S_j)
@@ -68,8 +77,8 @@ object TripletSorter {
             else proceedWithG0
           else {
             // group 2
-            val S_i_1 = g1_2.head.ltrs(1)
-            val S_j_1 = g0.head.ltrs(1)
+            val S_i_1 = g1_2.head.letters(1)
+            val S_j_1 = g0.head.letters(1)
             if (S_i_1 < S_j_1)
               proceedWithG12
             else if (S_j_1 < S_i_1)
@@ -86,33 +95,29 @@ object TripletSorter {
   }
 
   def radixSort(g0: TripList, suffixes: OrderedSuffixes): TripList = {
-    val groupedBy: Map[Int, List[IndexedTriplet]] = g0.groupBy(_.ltrs.head)
-    //need to fix zis
+    val groupedBy: Map[Int, List[IndexedTriplet]] = g0.groupBy(_.letters.head)
     val sortedMap = groupedBy.map(x => (x._1, x._2.sortBy(y => suffixes.get(y.i + 1)))).toList.sortBy(_._1)
-    val flatten = sortedMap.flatten(l => l._2)
-    flatten
+    sortedMap.flatten(l => l._2)
   }
-
-  //.groupBy(_.ltrs.head).flatMap(x => x._2.sortBy(y => suffixes.get(y.wordIdx + 1))).toList
 
   def sort_aux(src: IndexedIntWord): TripList = {
     if (src.size <= 3)
-      radixSort(mkTriplets(src += Marco(∞, -1) += Marco(∞, -1)))
+      radixSort(mkTriplets(src += OrderedToken(∞, -1) += OrderedToken(∞, -1)))
     else {
       val (g0, g1_2) = mkGroups(src)
-      val handler: TripList = oneTwoHandler(g1_2)
-      val orderedSuffixes = new OrderedSuffixes(handler)
-      merge(radixSort(g0, orderedSuffixes), handler)
+      val g1_2Sorted: TripList = oneTwoHandler(g1_2)
+      val orderedSuffixes = new OrderedSuffixes(g1_2Sorted)
+      merge(radixSort(g0, orderedSuffixes), g1_2Sorted)
     }
   }
 
   def oneTwoHandler(src: TripList): TripList = {
     val $ = radixSort(src)
     val o = new Ordinal
-    var li = new ListBuffer[Marco]
+    var li = new ListBuffer[OrderedToken]
     $.foreach(x => li += o.next(x))
     if (o.equaled) {
-      li += Marco(∞, -1) += Marco(∞, -1)
+      li += OrderedToken(∞, -1) += OrderedToken(∞, -1)
       val sorted = sort_aux(li)
       sorted.take(sorted.size - 2).map(x => $(x.i))
     } else
@@ -122,7 +127,7 @@ object TripletSorter {
   def radixSort(src: TripList): TripList = {
     def radixSort_aux(src: TripList, i: Int): TripList = {
       if (i == 3) src
-      else src.groupBy(_.ltrs(i)).map(x => (x._1, radixSort_aux(x._2, i + 1))).toList.sortBy(_._1).flatten(_._2)
+      else src.groupBy(_.letters(i)).map(x => (x._1, radixSort_aux(x._2, i + 1))).toList.sortBy(_._1).flatten(_._2)
     }
 
     radixSort_aux(src, 0)
@@ -149,23 +154,23 @@ object TripletSorter {
 
 }
 
-case class Marco(tkn: Int, ord: Int) {}
 
 class Ordinal {
+
   var i: Int = -1
   var j: Int = -1
-  var last: IndexedTriplet = IndexedTriplet(-1, -1, ListBuffer(-1, -1, -1))
+  var last: IndexedTriplet = IndexedTriplet(∅, ∅, ListBuffer(∅, ∅, ∅))
   var equaled = false
 
-  def next(): Marco = next(last)
+  def next(): OrderedToken = next(last)
 
-  def next(current: IndexedTriplet): Marco = {
+  def next(current: IndexedTriplet): OrderedToken = {
     if (last != current)
       i += 1
     else
       equaled = true
     j += 1
     last = current
-    Marco(i, j)
+    OrderedToken(i, j)
   }
 }
