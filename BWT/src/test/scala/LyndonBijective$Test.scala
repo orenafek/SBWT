@@ -1,5 +1,7 @@
 import org.scalatest.FunSuite
 
+import scala.language.postfixOps
+
 /**
   * @author Oren Afek
   * @since 05/02/17
