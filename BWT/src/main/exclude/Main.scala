@@ -2,8 +2,7 @@
   * Created by sorimar on 12/8/2016.
   */
 
-import List.range
-import List.fill
+import scala.List.{fill, range}
 
 object Main {
   val max_char = 255
@@ -37,8 +36,10 @@ object Main {
             $.reduce(_ ::: _)
           }
         }
+
       radixSort(group, 0)
     }
+
     def tripletsMergeSort(g1: List[Suffix], g2: List[Suffix]): List[Suffix] = ???
 
     def merge(g1: List[Suffix], g2: List[Suffix]): List[Suffix] = ???

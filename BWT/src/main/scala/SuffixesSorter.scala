@@ -1,10 +1,8 @@
+import Constants.{∅, ∞}
 import GilScottBijectiveTransform.Word
 import SuffixesSorter.IndexedTriplet
 
 import scala.collection.mutable.ListBuffer
-
-import Constants.∞
-import Constants.∅
 
 /** The purpose of this decent class is just to kindly sort suffixes of a given string. In O(n).
   * Which is not trivial at all and is implemented according to the Skew algorithm.
@@ -145,13 +143,13 @@ object SuffixesSorter {
   }
 
   class OrderedSuffixes() {
-    val magicNo = 1.5
+    val recursiveFactor = 1.5
     var data: Array[Int] = _
 
     def this(lst: TripList) = {
       this()
       val temp = lst.toArray
-      val len = scala.math.ceil(magicNo * lst.size + 2).toInt
+      val len = scala.math.ceil(recursiveFactor * lst.size + 2).toInt
       data = new Array(len)
       for (i: Int <- temp.indices) {
         data(temp(i).wordIdx) = i

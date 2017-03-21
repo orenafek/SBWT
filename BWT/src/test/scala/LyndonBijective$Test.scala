@@ -23,14 +23,14 @@ class LyndonBijective$Test extends FunSuite {
     "Qui ex vitae euismod reprehendunt, quot putant persius eam te. Dignissim dissentias his et, id usu " +
     "probo zril.\n\nPer illum liber et. Facer vidisse ex vim. No postea suscipiantur duo. Porro tritani " +
     "nam eu."
-  private val BWT = new BurrowsWheelerTransform()
+  private val BWT = new BurrowsWheelerTransform
   private val GST = GilScottBijectiveTransform
   val paper: String = "This paper presents the notion of Nano-Patterns, offers criteria for evaluating" +
     "\ntheir quality, and describes how they might be used for code design, effective" +
     "\ncommunication between programmers, a concrete documentation aides, and in" +
     "\nconsideration of extension of the base programming language."
 
-    test("testFactorize") {
+  test("testFactorize") {
     assertResult(List("abc" toList))(GilScottBijectiveTransform.factorize("abc" toList))
     assertResult(List("or".toList, "en".toList))(GilScottBijectiveTransform.factorize("oren".toList))
     assertResult(List("gr".toList, "een".toList))(GilScottBijectiveTransform.factorize("green".toList))

@@ -31,6 +31,7 @@ class BurrowsWheelerTransform {
 
       if (i == 0) Nil else concatRotationAndContinue(rotation(α), i)
     }
+
     rotations(ω, ω.length)
   }
 
