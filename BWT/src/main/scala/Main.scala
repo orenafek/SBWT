@@ -1,4 +1,4 @@
-import java.io.{BufferedInputStream, FileInputStream}
+
 
 /**
   * @author Oren Afek & Ori Marcovitch
@@ -20,7 +20,7 @@ object Main {
   }
 
   def main(args: Array[String]): Unit = {
-      test(new BurrowsWheelerTransform,random1,500)
+    test(new BurrowsWheelerTransform, random1, 500)
   }
 
 }

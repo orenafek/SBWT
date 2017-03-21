@@ -24,4 +24,57 @@ object GilScottBijectiveTransform extends BurrowsWheelerTransform {
     factorize(S, 1, 0)
   }
 
+  /**
+    * The inverse of Gil Scott Burrows Wheeler transform running in O(n), algorithm according to Gil:Scott:09
+    *
+    * @param η word to inverse
+    * @return
+    */
+  def inverse(η: Word): Word = {
+
+    def Match(η: Word): π = {
+      val n = η.size
+      val Σ = 256
+      val ϑ = new Array[Int](n)
+      val counts = new Array[Int](Σ)
+      for (i <- 0 until n)
+        counts(η(i)) += 1
+      val before = new Array[Int](Σ)
+      before(0) = counts(0)
+      for (c <- 1 until Σ)
+        before(c) = before(c - 1) + counts(c - 1)
+      val seen = new Array[Int](Σ)
+      for (i <- 0 until n) {
+        val c = η(i)
+        ϑ(i) = before(c) + seen(c)
+        seen(c) += 1
+      }
+      ϑ
+    }
+
+    def multiThread(η: Word, ϑ: π) = {
+      val n = η.size
+      val ⊥ = -17
+      val T = new Array[Int](n)
+      for (i <- 0 until n)
+        T(i) = ϑ(i)
+      var α: Word = Nil
+      for (j <- 0 until n)
+        if (T(j) != ⊥) {
+          var k = j
+          do {
+            α = η(k) :: α
+            val t = k
+            k = T(k)
+            T(t) = ⊥
+          } while (T(k) != ⊥)
+        }
+      α
+    }
+
+    val ϑ = Match(η)
+
+    multiThread(η, ϑ)
+
+  }
 }
