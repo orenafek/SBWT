@@ -21,7 +21,7 @@ Our implementation introduces a new, improved way of sorting strings, in a ** li
 
 * Technicalities
 
-`In order to be consistant with the paper's sugested algorithems, we've used some greek alphabetic notions when naming variables and methods. In order to stay fully consistant, we've left some variables that should have normally been inlined, as they are. `
+> In order to be consistant with the paper's sugested algorithems, we've used some greek alphabetic notions when naming variables and methods. In order to stay fully consistant, we've left some variables that should have normally been inlined, as they are. `
 
 * Linear Time : 
 
