@@ -7,12 +7,16 @@ Scala implementation of BW Transform
 
 #### Developed in Scala (2.12) using SBT (0.13.8)
 
+#### Project Type
+This is a research type of project, hoping to be graded with a 100 :).
+
 ### Project Goals
 This project seggests a concreate implementation in Scala to the **A Bijective String Sorting Transform, by Gil & Scott** http://bijective.dogma.net/00yyy.pdf.
 Our implementation introduces a new, improved way of sorting strings, in a ** linear time (O(n)) **
  TODO: ORI ADD SOME MORE BLA BLA BLA
  
- 
+
+
 ### Project Aspects 
 
 * Bijective ...
