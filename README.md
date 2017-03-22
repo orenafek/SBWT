@@ -1,5 +1,4 @@
-# SBWT
-Scala implementation of BW Transform
+# SBWT - Sacala Implementation of a Bijective String Sorting Transform
 
 ### By
 * Oren Afek, oren.afek[at]cs.technion.ac.il, 315472589
