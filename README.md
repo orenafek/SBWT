@@ -15,20 +15,23 @@ We also implement the standard Burrows Wheeler Transform.
 This includes an implementation of a suffix array sorter which runs in linear time.
 
 
-### What the implementation does
+### What have we got
+1. Implementation of the *Burrows Wheeler Transform* running in O(n^2) (`BurrowsWheelerTransform.transformSlow()`).
+2. Implementation of the *Burrows Wheeler Transform* running in O(n) (`BurrowsWheelerTransform.transformLinear()`).
+3. Implementation of the *Skew* algorithm for string suffix sorting in linear time (`SuffixesSorter.sort()`).
+4. Implementation of the *Bijective String Sorting Transform* running in O(n^2) (`GilScottBijectiveTransform.transformSlow()`).
+4. Implementation of the *Inverse Bijective String Sorting Transform* running in O(n) (`GilScottBijectiveTransform.inverse()`).
 
-* Bijective ...
 
 * Triplet Sorter ....
 
-* Technicalities
 ### About the implementation
-
+* Technicalities
 > In order to be consistant with the paper's sugested algorithems, we've used some greek alphabetic notions when naming variables and methods. In order to stay fully consistant, we've left some variables that should have normally been inlined, as they are.
 
 * Linear Time : 
 ### Usage guide
 
-### Example
+### For example...
 
 
