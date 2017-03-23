@@ -1,4 +1,4 @@
-# SBWT - Sacala Implementation of a Bijective String Sorting Transform
+# SBWT - Scala implementation of Burrows Wheeler Transform (and more)
 
 ### By
 * Oren Afek, oren.afek[at]cs.technion.ac.il, 315472589
@@ -7,13 +7,12 @@
 #### Developed in Scala (2.12) using SBT (0.13.8)
 
 #### Project Type
-This is a research type of project, hoping to be graded with a 100 :).
+This is a research project, hoping to be graded with a 100 :).
 
 ### Project Goals
-This project seggests a concreate implementation in Scala to the **A Bijective String Sorting Transform, by Gil & Scott** http://bijective.dogma.net/00yyy.pdf.
-Our implementation introduces a new, improved way of sorting strings, in a ** linear time (O(n)) **
- TODO: ORI ADD SOME MORE BLA BLA BLA
- 
+In this project we implement the Bijective String Sorting Transform suggested by [Gil & Scott]( http://bijective.dogma.net/00yyy.pdf), which is based on the Burrows Wheeler Transform.
+We also implement the standard Burrows Wheeler Transform.
+This includes an implementation of a suffix array sorter which runs in linear time.
 
 
 ### Project Aspects 
