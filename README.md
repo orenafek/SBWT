@@ -1,4 +1,4 @@
-# SBWT - Scala implementation of Burrows Wheeler Transform (and more)
+# SBWT - Scala Burrows Wheeler Transform (and more)
 
 ### By
 * Oren Afek, oren.afek[at]cs.technion.ac.il, 315472589
