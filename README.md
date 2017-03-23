@@ -15,15 +15,20 @@ We also implement the standard Burrows Wheeler Transform.
 This includes an implementation of a suffix array sorter which runs in linear time.
 
 
-### Project Aspects 
+### What the implementation does
 
 * Bijective ...
 
 * Triplet Sorter ....
 
 * Technicalities
+### About the implementation
 
 > In order to be consistant with the paper's sugested algorithems, we've used some greek alphabetic notions when naming variables and methods. In order to stay fully consistant, we've left some variables that should have normally been inlined, as they are.
 
 * Linear Time : 
+### Usage guide
+
+### Example
+
 
