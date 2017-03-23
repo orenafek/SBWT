@@ -24,12 +24,19 @@ This includes an implementation of a suffix array sorter which runs in linear ti
 
 
 ### About the implementation
+* BurrowsWheelerTransform.transformSlow - TODO: @orenafek
+
+* BurrowsWheelerTransform.transformFast - TODO: @orenafek
+
+* SuffixesSorter - TODO: @orimarco
+
+* Bijective - TODO: @orimarco
+* Bijective inverse - TODO: @orimarco
 * Technicalities
-> In order to be consistant with the paper's sugested algorithems, we've used some greek alphabetic notions when naming variables and methods. In order to stay fully consistant, we've left some variables that should have normally been inlined, as they are.
+> In order to be consistant with the paper's sugested algorithems, we've used some greek alphabetic notations when naming variables and methods. In order to stay fully consistant, we've left some variables that should have normally been inlined, as they are.
 
-* Linear Time : 
 ### Usage guide
-
+  TODO: @orenafek
 ### For example...
-
+  TODO: @orimarco
 
