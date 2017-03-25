@@ -116,18 +116,19 @@ object SuffixesSorter {
     def withoutEnd(sorted: TripList): List[IndexedTriplet] = {
       sorted.take(sorted.size - 2)
     }
-    val reIndexed = src.map(x => new IndexedTriplet(1,x.wordIdx,x.letters))
-    val $ = radixSort(src)
-    val o = new WordGenerator
+    val o = new Ordinal
+    val reIndexed = src.map(x => IndexedTriplet(o.next(), x.wordIdx, x.letters))
+    val $ = radixSort(reIndexed)
+    val g = new WordGenerator
     val arr: Array[OrderedToken] = new Array($.size)
-    $.foreach(x => arr(x.i) = o.next(x))
-    if (o.equaled) {
+    $.foreach(x => arr(x.i) = g.next(x))
+    if (g.equaled) {
       var li: ListBuffer[OrderedToken] = arr.to[ListBuffer]
       li += defaultToken += defaultToken
       val sorted = sort_aux(li)
-      withoutEnd(sorted).map(x => $(x.i))
+      withoutEnd(sorted).map(x => src(x.i))
     } else
-      $
+      $.map(x => src(x.i))
   }
 
   def defaultToken: OrderedToken = {
@@ -166,18 +167,21 @@ object SuffixesSorter {
 
 
 class Ordinal {
-
-}
-class WordGenerator {
   var idx: Int = -1
-  var tkn: Int = -1
-  var last = ListBuffer(∅, ∅, ∅)
-  var equaled = false
 
-  def next(): OrderedToken = {
+  def next(): Int = {
     idx += 1
-    OrderedToken(∅, idx)
+    idx
   }
+}
+
+class WordGenerator {
+  var tkn: Int = -1
+  var last: ListBuffer[Int] = ListBuffer(∅, ∅, ∅)
+  var equaled: Boolean = false
+  val ord: Ordinal = new Ordinal
+
+  def next(): OrderedToken = OrderedToken(∅, ord.next())
 
   def next(current: IndexedTriplet): OrderedToken = {
     if (last != current.letters)
