@@ -29,11 +29,9 @@ class LyndonBijective$Test extends FunSuite {
 
 
   test("slower--linear") {
-    println(BWT.transformLinear(paper.toList).mkString)
-    println(BWT.transformSlow(paper.toList).mkString)
-
-    assertResult(BWT.transformLinear(paper.toList).mkString)(BWT.transformSlow(paper.toList).mkString)
+    assertResult(BWT.transformLinear(NowIs.toList).mkString)(BWT.transformSlow(NowIs.toList).mkString)
   }
+
   test("testFactorize") {
     assertResult(List("abc" toList))(GST.factorize("abc" toList))
     assertResult(List("or".toList, "en".toList))(GST.factorize("oren".toList))

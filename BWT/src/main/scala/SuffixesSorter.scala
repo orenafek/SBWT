@@ -32,8 +32,10 @@ object SuffixesSorter {
       .map(i => IndexedTriplet(src(i).ord, i, ListBuffer(src(i).tkn, src(i + 1).tkn, src(i + 2).tkn))).toList
 
     def group0(x: IndexedTriplet) = x.wordIdx % 3 == 0
+    def group1(x: IndexedTriplet) = x.wordIdx % 3 == 1
+    def group2(x: IndexedTriplet) = x.wordIdx % 3 == 2
 
-    ($.filter(group0), $.filter(!group0(_)))
+    ($.filter(group0), $.filter(group1) ::: $.filter(group2))
   }
 
   def mkTriplets(src: IndexedIntWord): TripList = mkTriplets_aux(src)
