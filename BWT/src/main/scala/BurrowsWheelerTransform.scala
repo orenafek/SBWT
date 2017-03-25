@@ -23,7 +23,7 @@ class BurrowsWheelerTransform {
   def sort(l: List[Word]): List[Word] =
     l.map(_.mkString).sortWith(lt).map(_.toList)
 
-  def takeLast(words: List[Word]): Word = words.map(_.last)
+  def takeLasts(words: List[Word]): Word = words.map(_.last)
 
   def rotations(ω: Word): List[Word] = {
     def rotations(α: Word, i: Int): List[Word] = {
@@ -41,7 +41,7 @@ class BurrowsWheelerTransform {
     * @param w word to transform
     * @return
     */
-  def transformSlow(w: Word): Word = takeLast(sort(rotations(w)))
+  def transformSlow(w: Word): Word = takeLasts(sort(rotations(w)))
 
   /**
     * Burrows Wheeler transform running in O(n), using the Skew algorithm to sort suffixes

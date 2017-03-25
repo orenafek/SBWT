@@ -8,7 +8,7 @@
   */
 object GilScottBijectiveTransform extends BurrowsWheelerTransform {
 
-  override def transformSlow(w: Word): Word = takeLast(sort(wordsRotations(factorize(w))))
+  override def transformSlow(w: Word): Word = takeLasts(sort(wordsRotations(factorize(w))))
 
   def wordsRotations(ωs: List[Word]): List[Word] = {
     ωs.flatMap(ω => rotations(ω))
