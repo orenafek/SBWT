@@ -47,9 +47,10 @@ object SuffixesSorter {
   def suffixesSorted(src: Word): List[Word] = sort(src).map(t => src.takeRight(src.length - t.i))
 
 
-  private def sort(src: GilScottBijectiveTransform.Word): TripList =
-    sort_aux(src.map(c => OrderedToken(c.toInt, new Ordinal().next().ord)).to[ListBuffer] += defaultToken += defaultToken)
-
+  private def sort(src: GilScottBijectiveTransform.Word): TripList = {
+    val o = new Ordinal
+    sort_aux(src.map(c => OrderedToken(c.toInt, o.next().ord)).to[ListBuffer] += defaultToken += defaultToken)
+  }
 
   def merge(g0: TripList, g1_2: TripList): TripList = {
 
