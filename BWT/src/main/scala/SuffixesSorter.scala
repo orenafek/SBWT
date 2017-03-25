@@ -117,7 +117,7 @@ object SuffixesSorter {
       sorted.take(sorted.size - 2)
     }
     val o = new Ordinal
-    val reIndexed = src.map(x => IndexedTriplet(o.next(), x.wordIdx, x.letters))
+    val reIndexed: TripList = src.map(x => IndexedTriplet(o.next(), x.wordIdx, x.letters))
     val $ = radixSort(reIndexed)
     val g = new WordGenerator
     val arr: Array[OrderedToken] = new Array($.size)
@@ -145,7 +145,7 @@ object SuffixesSorter {
   }
 
   class OrderedSuffixes() {
-    val recursiveFactor = 1.5
+    val recursiveFactor = 2
     var data: Array[Int] = _
 
     def this(lst: TripList) = {
