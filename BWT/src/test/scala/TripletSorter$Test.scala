@@ -53,4 +53,10 @@ class TripletSorter$Test extends FunSuite {
     assertResult(List("a", "da", "dda", "ddda", "dddda", "ddddda"))(suffixesSorted(src).map(l => l.mkString))
   }
 
+  test("sort bcbcbcbca") {
+    val src = "bcbcbcbca".toList
+    println(suffixesSorted(src).map(l => l.mkString + "\n"))
+    //    assertResult(List("a", "da", "dda", "ddda", "dddda", "ddddda"))(suffixesSorted(src).map(l => l.mkString))
+  }
+
 }

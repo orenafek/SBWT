@@ -25,7 +25,7 @@ class LyndonBijective$Test extends FunSuite {
     "nam eu."
   private val BWT = new BurrowsWheelerTransform
   private val GST = GilScottBijectiveTransform
-  val paper: String = "ddddda"
+  val paper: String = "bcbcbcbca"
 
 
   test("slower--linear") {
