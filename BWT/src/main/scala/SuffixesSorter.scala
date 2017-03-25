@@ -48,7 +48,7 @@ object SuffixesSorter {
 
 
   private def sort(src: GilScottBijectiveTransform.Word): TripList = {
-    val o = new Ordinal
+    val o = new WordGenerator
     sort_aux(src.map(c => OrderedToken(c.toInt, o.next().ord)).to[ListBuffer] += defaultToken += defaultToken)
   }
 
@@ -82,7 +82,7 @@ object SuffixesSorter {
             val S_j_1 = g0.head.letters(1)
             if (S_i_1 < S_j_1)
               proceedWithG12
-            else if (S_j_1 < S_i_1)
+            else if (S_i_1 > S_j_1)
               proceedWithG0
             else if (suffixes.get(i + 2) < suffixes.get(j + 2))
               proceedWithG12
@@ -113,14 +113,19 @@ object SuffixesSorter {
   }
 
   def g1_2Sort(src: TripList): TripList = {
+    def withoutEnd(sorted: TripList): List[IndexedTriplet] = {
+      sorted.take(sorted.size - 2)
+    }
+    val reIndexed = src.map(x => new IndexedTriplet(1,x.wordIdx,x.letters))
     val $ = radixSort(src)
-    val o = new Ordinal
-    var li = new ListBuffer[OrderedToken]
-    $.foreach(x => li += o.next(x))
+    val o = new WordGenerator
+    val arr: Array[OrderedToken] = new Array($.size)
+    $.foreach(x => arr(x.i) = o.next(x))
     if (o.equaled) {
+      var li: ListBuffer[OrderedToken] = arr.to[ListBuffer]
       li += defaultToken += defaultToken
       val sorted = sort_aux(li)
-      sorted.take(sorted.size - 2).map(x => $(x.i))
+      withoutEnd(sorted).map(x => $(x.i))
     } else
       $
   }
@@ -162,20 +167,24 @@ object SuffixesSorter {
 
 class Ordinal {
 
-  var i: Int = -1
-  var j: Int = -1
-  var last: IndexedTriplet = IndexedTriplet(∅, ∅, ListBuffer(∅, ∅, ∅))
+}
+class WordGenerator {
+  var idx: Int = -1
+  var tkn: Int = -1
+  var last = ListBuffer(∅, ∅, ∅)
   var equaled = false
 
-  def next(): OrderedToken = next(last)
+  def next(): OrderedToken = {
+    idx += 1
+    OrderedToken(∅, idx)
+  }
 
   def next(current: IndexedTriplet): OrderedToken = {
-    if (last != current)
-      i += 1
+    if (last != current.letters)
+      tkn += 1
     else
       equaled = true
-    j += 1
-    last = current
-    OrderedToken(i, j)
+    last = current.letters
+    OrderedToken(tkn, current.i)
   }
 }

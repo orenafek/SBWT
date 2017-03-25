@@ -11,7 +11,7 @@ class TripletSorter$Test extends FunSuite {
   val aba = "aba".toList.to[ListBuffer]
 
   test("sortLessThen3letters") {
-    val o = new Ordinal()
+    val o = new WordGenerator()
     println(sort_aux(aba.map(c => OrderedToken(c.toInt, o.next().ord))))
   }
 
@@ -40,6 +40,15 @@ class TripletSorter$Test extends FunSuite {
 
   test("sort nowIs") {
     val src = "now is the time for the truly nice people to come to the party".toList
+    println(suffixesSorted(src).map(l => l.mkString + "\n"))
+  }
+
+  test("sort cpp") {
+    val src = "cpp".toList
+    assertResult(List("cpp"  ,"pp", "p" ))(suffixesSorted(src).map(l => l.mkString))
+  }
+  test("sort ddddda") {
+    val src = ("ddddda").toList
     println(suffixesSorted(src).map(l => l.mkString + "\n"))
   }
 

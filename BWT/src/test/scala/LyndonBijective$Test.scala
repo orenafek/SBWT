@@ -25,11 +25,15 @@ class LyndonBijective$Test extends FunSuite {
     "nam eu."
   private val BWT = new BurrowsWheelerTransform
   private val GST = GilScottBijectiveTransform
-  val paper: String = "This paper presents the notion of Nano-Patterns, offers criteria for evaluating" +
-    "\ntheir quality, and describes how they might be used for code design, effective" +
-    "\ncommunication between programmers, a concrete documentation aides, and in" +
-    "\nconsideration of extension of the base programming language."
+  val paper: String = "ddddda" + Char.MaxValue
 
+
+  test("slower--linear") {
+    println(BWT.transformLinear(paper.toList).mkString)
+    println(BWT.transformSlow(paper.toList).mkString)
+
+    assertResult(BWT.transformLinear(paper.toList).mkString)(BWT.transformSlow(paper.toList).mkString)
+  }
   test("testFactorize") {
     assertResult(List("abc" toList))(GST.factorize("abc" toList))
     assertResult(List("or".toList, "en".toList))(GST.factorize("oren".toList))
@@ -71,12 +75,6 @@ class LyndonBijective$Test extends FunSuite {
     assertResult(paper)(GST.inverse(GST.transformSlow(paper.toList)).mkString)
   }
 
-  test("slower--linear") {
-    println(BWT.transformLinear(paper.toList).mkString)
-    println(BWT.transformSlow(paper.toList).mkString)
-
-    assertResult(BWT.transformLinear(paper.toList).mkString)(BWT.transformSlow(paper.toList).mkString)
-  }
   test("paperLinear") {
     assertResult(paper)(GST.inverse(GST.transformSlow(paper.toList)).mkString)
   }
