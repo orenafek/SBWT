@@ -54,7 +54,6 @@ class LyndonBijective$Test extends FunSuite {
   test("takeLast") {
     assertResult("CGJ".toList)(GST.takeLast(List("ABC", "EFG", "HIJ").map(_.toList)))
     assertResult("CG J".toList)(GST.takeLast(List("ABC", "EFG", "HI ", "HIJ").map(_.toList)))
-
   }
 
 
