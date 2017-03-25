@@ -20,7 +20,7 @@ class TripletSorter$Test extends FunSuite {
   }
 
   test("sort simple") {
-    println(suffixesSorted("cab".toList).map(x => x.mkString))
+    assertResult(List("ab", "b", "cab"))(suffixesSorted("cab".toList).map(x => x.mkString))
   }
 
   test("sort simple2") {
