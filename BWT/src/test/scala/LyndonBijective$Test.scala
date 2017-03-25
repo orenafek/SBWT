@@ -31,31 +31,31 @@ class LyndonBijective$Test extends FunSuite {
     "\nconsideration of extension of the base programming language."
 
   test("testFactorize") {
-    assertResult(List("abc" toList))(GilScottBijectiveTransform.factorize("abc" toList))
-    assertResult(List("or".toList, "en".toList))(GilScottBijectiveTransform.factorize("oren".toList))
-    assertResult(List("gr".toList, "een".toList))(GilScottBijectiveTransform.factorize("green".toList))
-    assertResult(List("o".toList, "iuy".toList, "c".toList, "aasffff".toList))(GilScottBijectiveTransform.factorize("oiuycaasffff".toList))
+    assertResult(List("abc" toList))(GST.factorize("abc" toList))
+    assertResult(List("or".toList, "en".toList))(GST.factorize("oren".toList))
+    assertResult(List("gr".toList, "een".toList))(GST.factorize("green".toList))
+    assertResult(List("o".toList, "iuy".toList, "c".toList, "aasffff".toList))(GST.factorize("oiuycaasffff".toList))
   }
 
   test("testRotations") {
-    assertResult(List("ABC", "BCA", "CAB").map(_.toList))(GilScottBijectiveTransform.sort(GilScottBijectiveTransform.rotations("ABC".toList)))
+    assertResult(List("ABC", "BCA", "CAB").map(_.toList))(GST.sort(GST.rotations("ABC".toList)))
   }
 
   test("testRotation") {
-    assertResult("BCA".toList)(GilScottBijectiveTransform.rotation("ABC".toList))
-    assertResult("CCAB".toList)(GilScottBijectiveTransform.rotation("BCCA".toList))
-    assertResult("CC AB".toList)(GilScottBijectiveTransform.rotation("BCC A".toList))
+    assertResult("BCA".toList)(GST.rotation("ABC".toList))
+    assertResult("CCAB".toList)(GST.rotation("BCCA".toList))
+    assertResult("CC AB".toList)(GST.rotation("BCC A".toList))
   }
 
   test("takeLast") {
-    assertResult("CGJ".toList)(GilScottBijectiveTransform.takeLast(List("ABC", "EFG", "HIJ").map(_.toList)))
-    assertResult("CG J".toList)(GilScottBijectiveTransform.takeLast(List("ABC", "EFG", "HI ", "HIJ").map(_.toList)))
+    assertResult("CGJ".toList)(GST.takeLast(List("ABC", "EFG", "HIJ").map(_.toList)))
+    assertResult("CG J".toList)(GST.takeLast(List("ABC", "EFG", "HI ", "HIJ").map(_.toList)))
 
   }
 
 
   test("bijectiveTransform") {
-    assertResult(NowIsGSTransformed)(GilScottBijectiveTransform.transformSlow(NowIs.toList).mkString)
+    assertResult(NowIsGSTransformed)(GST.transformSlow(NowIs.toList).mkString)
   }
 
   test("linearTransform") {
@@ -64,18 +64,18 @@ class LyndonBijective$Test extends FunSuite {
   }
 
   test("inverse") {
-    assertResult(NowIs)(GilScottBijectiveTransform.inverse(NowIsGSTransformed.toList).mkString)
+    assertResult(NowIs)(GST.inverse(NowIsGSTransformed.toList).mkString)
   }
 
   test("paper") {
-    assertResult(paper)(GilScottBijectiveTransform.inverse(GilScottBijectiveTransform.transformSlow(paper.toList)).mkString)
+    assertResult(paper)(GST.inverse(GST.transformSlow(paper.toList)).mkString)
   }
 
   test("slower--linear") {
     assertResult(BWT.transformLinear(paper.toList).mkString)(BWT.transformSlow(paper.toList).mkString)
   }
   test("paperLinear") {
-    assertResult(paper)(GilScottBijectiveTransform.inverse(GilScottBijectiveTransform.transformSlow(paper.toList)).mkString)
+    assertResult(paper)(GST.inverse(GST.transformSlow(paper.toList)).mkString)
   }
 
   test("final2") {
