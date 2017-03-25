@@ -63,6 +63,10 @@ class LyndonBijective$Test extends FunSuite {
     assertResult(NowIsBWTransformed)(BWT.transformLinear((NowIs).toList).mkString)
   }
 
+  test("slowTransform") {
+    assertResult(NowIsBWTransformed)(BWT.transformSlow((NowIs).toList).mkString)
+  }
+
   test("inverse") {
     assertResult(NowIs)(GST.inverse(NowIsGSTransformed.toList).mkString)
   }
