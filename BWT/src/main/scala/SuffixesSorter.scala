@@ -41,19 +41,14 @@ object SuffixesSorter {
   def mkTriplets_aux(src: IndexedIntWord): TripList = Range(0, src.size - 2)
     .map(i => IndexedTriplet(src(i).ord, i, ListBuffer(src(i).tkn, src(i + 1).tkn, src(i + 2).tkn))).toList
 
-  def suffixesIndexesSorted(src: Word): List[Int] = {
-    sort(src).map(_.i)
-  }
+  def suffixesIndexesSorted(src: Word): List[Int] = sort(src).map(_.i)
 
-  def suffixesSorted(src: Word): List[Word] = {
-    sort(src).map(t => src.takeRight(src.length - t.i))
-  }
 
-  private def sort(src: GilScottBijectiveTransform.Word): TripList = {
-    val o = new Ordinal()
-    val x = sort_aux(src.map(c => OrderedToken(c.toInt, o.next().ord)).to[ListBuffer] += defaultToken += defaultToken)
-    x
-  }
+  def suffixesSorted(src: Word): List[Word] = sort(src).map(t => src.takeRight(src.length - t.i))
+
+
+  private def sort(src: GilScottBijectiveTransform.Word): TripList =
+    sort_aux(src.map(c => OrderedToken(c.toInt, new Ordinal().next().ord)).to[ListBuffer] += defaultToken += defaultToken)
 
 
   def merge(g0: TripList, g1_2: TripList): TripList = {
