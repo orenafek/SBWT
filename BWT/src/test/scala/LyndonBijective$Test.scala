@@ -25,7 +25,7 @@ class LyndonBijective$Test extends FunSuite {
     "nam eu."
   private val BWT = new BurrowsWheelerTransform
   private val GST = GilScottBijectiveTransform
-  val paper: String = "ddddda" + Char.MaxValue
+  val paper: String = "ddddda"
 
 
   test("slower--linear") {
@@ -63,7 +63,7 @@ class LyndonBijective$Test extends FunSuite {
   }
 
   test("linearTransform") {
-    assertResult(NowIsBWTransformed)(BWT.transformLinear(NowIs.toList).mkString)
+    assertResult(NowIsBWTransformed)(BWT.transformLinear((NowIs).toList).mkString)
   }
 
   test("inverse") {

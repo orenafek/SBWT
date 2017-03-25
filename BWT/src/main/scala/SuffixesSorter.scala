@@ -108,7 +108,8 @@ object SuffixesSorter {
       val (g0, g1_2) = mkGroups(src)
       val g1_2Sorted: TripList = g1_2Sort(g1_2)
       val orderedSuffixes = new OrderedSuffixes(g1_2Sorted)
-      merge(radixSort(g0, orderedSuffixes), g1_2Sorted)
+      val x = merge(radixSort(g0, orderedSuffixes), g1_2Sorted)
+      x
     }
   }
 
@@ -126,7 +127,7 @@ object SuffixesSorter {
       var li: ListBuffer[OrderedToken] = arr.to[ListBuffer]
       li += defaultToken += defaultToken
       val sorted = sort_aux(li)
-      withoutEnd(sorted).map(x => src(x.i))
+      sorted.map(x => src(x.i))
     } else
       $.map(x => src(x.i))
   }
