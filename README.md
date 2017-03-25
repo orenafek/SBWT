@@ -51,7 +51,14 @@ This is a time complexity improvement to the basic implementation of the BW's tr
 > In order to be consistant with the paper's sugested algorithems, we've used some greek alphabetic notations when naming variables and methods. In order to stay fully consistant, we've left some variables that should have normally been inlined, as they are.
 
 ### Usage guide
-  TODO: @orenafek
+1. **Goto:** `SBWT\BWT\src\main\scala`
+2. **Compile:** run scala compiler by: `scalac *.scala`
+3. **Run:** `scala Main <file_name> <mode> [options]`
+  
+    > mode: BWT - for Burrows Wheeler Transform, GS - for Gil&Scott Transform
+        options: -s: for slow, normal mode
+                 -l: for fast, linear mode
+
 ### For example...
   TODO: @orimarco
 ### Research Results
