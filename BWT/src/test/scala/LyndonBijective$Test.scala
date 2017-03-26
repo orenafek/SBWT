@@ -7,7 +7,7 @@ import scala.language.postfixOps
   * @since 05/02/17
   */
 class LyndonBijective$Test extends FunSuite {
-  //  private val NowIs: String = "now is the time for the truly nice people to come to the party"
+  private val NowIs: String = "now is the time for the truly nice people to come to the party"
 
   private val NowIsGSTransformed: String = "yoeyeeosreeeepi mhchlmhp tttnt puio wttcefn  ooati       rrotl"
   private val NowIsBWTransformed: String = "oewyeeosreeeepi mhchlmhp tttnt puio yttcefn  ooati       rrolt"
@@ -27,7 +27,6 @@ class LyndonBijective$Test extends FunSuite {
   private val BWT = new BurrowsWheelerTransform
   private val GST = GilScottBijectiveTransform
   val paper: String = "bcbcbcbca"
-  private val NowIs: String = "now is the time for the truly nice people to come to the party"
 
   test("slowTransform") {
     assertResult(NowIsBWTransformed)(BWT.transformSlow((NowIs).toList).mkString)
