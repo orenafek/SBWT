@@ -25,26 +25,14 @@ This includes an implementation of a suffix array sorter which runs in linear ti
 
 ### About the implementation
 * **BurrowsWheelerTransform.transformSlow:**
-This is the basic implementation of the BW's transform: 
-    ```scala
-    takeLast(sort(rotations(w)))
-    ```
-    * `rotations(ω: Word): List[Word]` - calculates and returns all of the rotations of ω.
-    * `sort(l: List[Word]): List[Word]` - sorts the rotations calculated above. The strings are compared 
-    as they were in the same length : `(s2 * s1.length) >= (s1 * s2.length)`
-    * `takeLast(words: List[Word]): Word` - returns the last column of the rotations of ω.
-         
+    This is the basic implementation of the BW's transform.
+    Given a string we calculates it's rotations, sort them lexicographically and return the last column.
+      
 * **BurrowsWheelerTransform.transformLinear:**
-This is a time complexity improvement to the basic implementation of the BW's transform: 
-    ```scala
-     SuffixesSorter.suffixesIndexesSorted(w).map(i => w((w.size + i - 1) % w.size))
-    ```
-     * `SuffixesSorter.suffixesIndexesSorted(w)` - creates suffixes of w and sorts them using the SuffixesSorter as explained below.
-     * `map(i => w((w.size + i - 1) % w.size))` - extracts the last character of each sorted suffix. 
-     
+    This is a time complexity improvement to the basic implementation of the BW's transform.
+    Given a string we calculates it's suffixes, sort them using the Skew algorithm and return the last column (every suffix presents a rotation).
      
 * **SuffixesSorter** 
-
     Sorting suffixes is done according to the[**Skew**](http://www.cs.cmu.edu/~ckingsf/bioinfo-lectures/suffixarrays.pdf) algorithm,
     Won't explain the algorithm here...
 
@@ -93,5 +81,5 @@ yoeyeeosreeeepi mhchlmhp tttnt puio wttcefn  ooati       rrotl
 ```
     
 ### Research Results
-  TODO: @orenafek
+  TBD
 
