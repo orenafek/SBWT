@@ -20,6 +20,7 @@ class BurrowsWheelerTransform {
 
     private def lt(s1: String, s2: String): Boolean = s1 <= s2
 
+  // For future implementation, comparing strings in another way
   //  private def ltCyclic(s1: String, s2: String): Boolean = (s2 * s1.length) >= (s1 * s2.length)
 
   def sort(l: List[Word]): List[Word] =
