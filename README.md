@@ -43,12 +43,19 @@ This is a time complexity improvement to the basic implementation of the BW's tr
      * `map(i => w((w.size + i - 1) % w.size))` - extracts the last character of each sorted suffix. 
      
      
-* SuffixesSorter - TODO: @orimarco
+* **SuffixesSorter** 
 
-* Bijective - TODO: @orimarco
-* Bijective inverse - TODO: @orimarco
+    Sorting suffixes is done according to the[**Skew**](http://www.cs.cmu.edu/~ckingsf/bioinfo-lectures/suffixarrays.pdf) algorithm,
+    Won't explain the algorithm here...
+
+* **Bijective**
+    This transform takes the text, factorizes it into lyndon words, then calculates rotations of these wwords, sorts them and returns last column like the regular BW.
+    
+* **Bijective inverse**
+    Calculates the inverse transform on a given string, according to the magically, math proven algorithm in Yossi's paper.
+
 * Technicalities
-> In order to be consistant with the paper's sugested algorithems, we've used some greek alphabetic notations when naming variables and methods. In order to stay fully consistant, we've left some variables that should have normally been inlined, as they are.
+    In order to be consistant with the paper's sugested algorithems, we've used some greek alphabetic notations when naming variables and methods. In order to stay fully consistant, we've left some variables that should have normally been inlined, as they are.
 
 ### Usage guide
 1. **Goto:** `SBWT\BWT\src\main\scala`
