@@ -7,9 +7,10 @@ import scala.language.postfixOps
   * @since 05/02/17
   */
 class LyndonBijective$Test extends FunSuite {
-  private val NowIs: String = "now is the time for the truly nice people to come to the party"
+  //  private val NowIs: String = "now is the time for the truly nice people to come to the party"
+
   private val NowIsGSTransformed: String = "yoeyeeosreeeepi mhchlmhp tttnt puio wttcefn  ooati       rrotl"
-  private val NowIsBWTransformed: String = "oewyeesroeeeepi mhchmhlp tttnt puio yttcefn  ooati       rrolt"
+  private val NowIsBWTransformed: String = "oewyeeosreeeepi mhchlmhp tttnt puio yttcefn  ooati       rrolt"
   private val LoremIpsum: String = "Lorem ipsum dolor sit amet, pri ad probo populo doctus, ei mel brute " +
     "dolores. Ei labore euismod qui. Ei natum appareat salutandi mea. Meliore dolores ex nam, mea elit " +
     "urbanitas ut, pro ea aliquip delectus repudiandae. Nec ei exerci graecis. No vis ullum iudico explicari," +
@@ -26,7 +27,11 @@ class LyndonBijective$Test extends FunSuite {
   private val BWT = new BurrowsWheelerTransform
   private val GST = GilScottBijectiveTransform
   val paper: String = "bcbcbcbca"
+  private val NowIs: String = "now is the time for the truly nice people to come to the party"
 
+  test("slowTransform") {
+    assertResult(NowIsBWTransformed)(BWT.transformSlow((NowIs).toList).mkString)
+  }
 
   test("slower--linear") {
     assertResult(BWT.transformLinear(NowIs.toList).mkString)(BWT.transformSlow(NowIs.toList).mkString)
@@ -63,9 +68,7 @@ class LyndonBijective$Test extends FunSuite {
     assertResult(NowIsBWTransformed)(BWT.transformLinear((NowIs).toList).mkString)
   }
 
-  test("slowTransform") {
-    assertResult(NowIsBWTransformed)(BWT.transformSlow((NowIs).toList).mkString)
-  }
+
 
   test("inverse") {
     assertResult(NowIs)(GST.inverse(NowIsGSTransformed.toList).mkString)

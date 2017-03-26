@@ -18,7 +18,9 @@ class BurrowsWheelerTransform {
     case c :: cs => cs ::: List(c)
   }
 
-  private def lt(s1: String, s2: String): Boolean = (s2 * s1.length) >= (s1 * s2.length)
+    private def lt(s1: String, s2: String): Boolean = s1 <= s2
+
+  //  private def ltCyclic(s1: String, s2: String): Boolean = (s2 * s1.length) >= (s1 * s2.length)
 
   def sort(l: List[Word]): List[Word] =
     l.map(_.mkString).sortWith(lt).map(_.toList)
