@@ -69,8 +69,9 @@ and
 ```scala
 (new BurrowsWheelerTransform).transformSlow(str)
 ```
-both will return:
-    `oewyeeosreeeepi mhchlmhp tttnt puio yttcefn  ooati       rrolt`
+both will return
+    ```scala 
+    oewyeeosreeeepi mhchlmhp tttnt puio yttcefn  ooati       rrolt```
     
 but
 ```scala
@@ -78,7 +79,8 @@ but
 ```
 will return:
 
-    `yoeyeeosreeeepi mhchlmhp tttnt puio wttcefn  ooati       rrotl`
+    ```scala
+    yoeyeeosreeeepi mhchlmhp tttnt puio wttcefn  ooati       rrotl```
 ### Research Results
   TODO: @orenafek
 
