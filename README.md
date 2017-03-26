@@ -33,7 +33,7 @@ This includes an implementation of a suffix array sorter which runs in linear ti
     Given a string we calculates it's suffixes, sort them using the Skew algorithm and return the last column (every suffix presents a rotation).
      
 * **SuffixesSorter** 
-    Sorting suffixes is done according to the[**Skew**](http://www.cs.cmu.edu/~ckingsf/bioinfo-lectures/suffixarrays.pdf) algorithm,
+    Sorting suffixes is done according to the [**Skew**](http://www.cs.cmu.edu/~ckingsf/bioinfo-lectures/suffixarrays.pdf) algorithm,
     Won't explain the algorithm here...
 
 * **Bijective**
