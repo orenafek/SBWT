@@ -51,9 +51,10 @@ This includes an implementation of a suffix array sorter which runs in linear ti
 3. **Run:** `scala Main <file_name> <mode> [options]`
   
     * mode: BWT - for Burrows Wheeler Transform, GS - for Gil&Scott Transform
-        * options: 
-            * -s: for slow, normal mode  
-            * -l: for fast, linear mode
+    * options: 
+        * -s: for slow, normal mode  
+        * -l: for fast, linear mode
+            
 Or... you can just run from inside the code.
 
 ### For example...
