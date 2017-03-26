@@ -4,9 +4,10 @@
 * Oren Afek, oren.afek[at]cs.technion.ac.il, 315472589
 * Ori Marcovitch sorimar[at]cs.technion.ac.il, 311545172
 
-#### Developed in Scala (2.12) using SBT (0.13.8)
+### Developed in
+Scala (2.12) using SBT (0.13.8)
 
-#### Project Type
+### Project Type
 This is a research project, hoping to be graded with a 100 :).
 
 ### Project Goals
