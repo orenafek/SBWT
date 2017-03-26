@@ -8,7 +8,6 @@ import scala.language.postfixOps
   */
 class LyndonBijective$Test extends FunSuite {
   private val NowIs: String = "now is the time for the truly nice people to come to the party"
-
   private val NowIsGSTransformed: String = "yoeyeeosreeeepi mhchlmhp tttnt puio wttcefn  ooati       rrotl"
   private val NowIsBWTransformed: String = "oewyeeosreeeepi mhchlmhp tttnt puio yttcefn  ooati       rrolt"
   private val LoremIpsum: String = "Lorem ipsum dolor sit amet, pri ad probo populo doctus, ei mel brute " +
