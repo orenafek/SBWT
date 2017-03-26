@@ -60,7 +60,31 @@ This is a time complexity improvement to the basic implementation of the BW's tr
                  -l: for fast, linear mode
 
 ### For example...
-  TODO: @orimarco
+Given the string
+
+```scala
+val str = now is the time for the truly nice people to come to the party
+```
+```scala
+(new BurrowsWheelerTransform).transformLinear(str)
+```
+and
+```scala
+(new BurrowsWheelerTransform).transformSlow(str)
+```
+both will return
+```scala 
+oewyeeosreeeepi mhchlmhp tttnt puio yttcefn  ooati       rrolt
+```    
+but
+```scala
+(GilScottBijectiveTransform).transformSlow(str)
+```
+will return:
+```scala
+yoeyeeosreeeepi mhchlmhp tttnt puio wttcefn  ooati       rrotl
+```
+    
 ### Research Results
   TODO: @orenafek
 
